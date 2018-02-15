@@ -15,7 +15,14 @@ Including another URLconf
 """
 from django.conf.urls import url
 from django.contrib import admin
+from django.conf.urls import include
+from polling import views
 
 urlpatterns = [
+    url(r'^$', views.index, name='index'),
+    url(r'^polling/', include('polling.urls')),
+    # above regex matches any URL contaning
+    # polling/, to be handled by polling applicaiton
+
     url(r'^admin/', admin.site.urls),
 ]
