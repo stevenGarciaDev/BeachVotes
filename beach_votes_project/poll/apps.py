@@ -3,5 +3,5 @@ from __future__ import unicode_literals
 from django.apps import AppConfig
 
 
-class PollingConfig(AppConfig):
-    name = 'polling'
+class PollConfig(AppConfig):
+    name = 'poll'
