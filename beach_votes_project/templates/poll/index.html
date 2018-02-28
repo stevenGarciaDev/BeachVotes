@@ -43,10 +43,43 @@ rel="stylesheet">
 
   </nav>
 
-  <div class="jumbotron" styles="background-image: {% static "images/mink-mingle-233730.jpg" %}; " >
+  <!-- {% static "images/mink-mingle-233730.jpg" %} -->
+  <div class="jumbotron text-center" styles="background-image: url('../static/images/mink-mingle-233730.jpg');" >
     <h1>BeachVotes</h1>
     <!-- <img class="img-fluid" src="{% static "images/mink-mingle-233730.jpg" %}" alt="Picture of Beach" /> -->
     <h2>A public site to vote for things you want.</h2>
+
+    <form action="#" method="POST" class="form-horizontal">
+      <div class="container col-md-6 col-md-offset-3">
+
+        <div class="form-group">
+          <label for="username" class="control-label">Username:</label>
+          <input type="text" class="form-control" id="username">
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="control-label">Email:</label>
+          <input type="text" class="form-control" id="email">
+        </div>
+
+        <div class="form-group">
+          <label for="password" class="control-label">Password:</label>
+          <input type="password" class="form-control" id="password">
+        </div>
+
+        <div class="form-group">
+          <label for="password_confirmation" class="control-label">Password Confirmation:</label>
+          <input type="password" class="form-control" id="password_confirmation">
+        </div>
+
+        <button class="btn btn-primary btn-lg btn-block">Sign Up</button>
+        <button class="btn btn-warning btn-lg btn-block">Log In</button>
+
+        <a href="#">Forgot Password?</a>
+
+      </div><!-- end of container for form -->
+    </form>
+
   </div>
 
 
