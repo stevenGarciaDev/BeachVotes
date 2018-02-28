@@ -18,7 +18,7 @@ rel="stylesheet">
   <link href="#" rel="stylesheet">
 </head>
 
-<body>
+<body style="">
 
   <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
     <button class="navbar-toggler navbar-toggler-right hidden-lg-up"
@@ -45,8 +45,8 @@ rel="stylesheet">
 
   <!-- {% static "images/mink-mingle-233730.jpg" %} -->
   <div class="jumbotron text-center" styles="background-image: url('../static/images/mink-mingle-233730.jpg');" >
+
     <h1>BeachVotes</h1>
-    <!-- <img class="img-fluid" src="{% static "images/mink-mingle-233730.jpg" %}" alt="Picture of Beach" /> -->
     <h2>A public site to vote for things you want.</h2>
 
     <form action="#" method="POST" class="form-horizontal">
@@ -81,6 +81,23 @@ rel="stylesheet">
     </form>
 
   </div>
+
+  <style>
+
+    body {
+      color: white;
+    }
+
+    .jumbotron {
+      background: linear-gradient(
+                    rgba(20, 20, 20, .6),
+                    rgba(20, 20, 20, .6)
+                  ),
+                  url('../static/images/mink-mingle-233730.jpg');
+      background-size: cover;
+    }
+
+  </style>
 
 
   <!-- Bootstrap core JavaScript ================================================== -->
