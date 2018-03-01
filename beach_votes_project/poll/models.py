@@ -12,7 +12,8 @@ class Category(models.Model):
         return self.group_name
 
 class Poll(models.Model):
-    category = models.ForeignKey(Category)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    
     title_question = models.CharField(max_length = 128, unique = True, null = False)
     start_date = models.DateTimeField( auto_now = False, auto_now_add = True, null = False)
     end_date =  models.DateTimeField
@@ -28,7 +29,7 @@ class User(models.Model):
         return self.username
 
 class Vote(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     vote_choice = models.CharField(max_length = 50, unique = False, null = False)
     comment = models.CharField(max_length = 144, unique = False, null = False)
     date_of_vote = models.DateTimeField( auto_now = False, auto_now_add = False, null = False )
