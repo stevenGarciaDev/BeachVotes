@@ -31,7 +31,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
+# Provided at the end is 'poll' which represents the app inn which will be 'BeachVotes'
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',

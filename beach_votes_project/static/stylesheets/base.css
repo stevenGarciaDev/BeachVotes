@@ -10,7 +10,11 @@ body {
 /* -----------------
  Specific Styles for index.html page
 ------------------ */
-
+/*
+  background sets image specifications
+    rgba enters values of red green blue and alpha
+  as well as path link to background image
+*/
 .jumbotron {
   background: linear-gradient(
                 rgba(20, 20, 20, .6),
