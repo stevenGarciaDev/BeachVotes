@@ -1,47 +1,10 @@
-<!DOCTYPE html>
+{% extends 'poll/base.html' %}
 {% load staticfiles %}
 
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width,
-                                initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="">
-  <meta name="author" content="">
-  <title>BeachVotes | Sign In</title>
+{% block title_block %}
+  {{ 'Create Poll'}}
+{% endblock %}
 
-  <!-- Bootstrap core CSS -->
-  <!-- Bootstrap core JavaScript ================================================== -->
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <!-- Latest compiled JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-
-  <link rel="stylesheet" href="{% static 'stylesheets/base.css' %}">
-</head>
-
-<body>
-
-  <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-        </button>
-        <a class="navbar-brand nav-text" href="#">BeachVotes</a>
-      </div>
-      <div class="collapse navbar-collapse" id="nav-collapse">
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="poll/create_poll">Home</a></li>
-          <li><a href="poll/show_polls">Polls</a></li>
-          <li><a href="poll/my_profile">My Account</a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
+{% block body_block %}
+  <h1>Create Poll</h1>
+{% endblock %}

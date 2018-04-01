@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+
+<html>
+<head lang="en">
+  <meta charset="UTF-8" />
+  <title>BeachVotes |
+    {% block title_block %}
+      Home
+    {% endblock %}
+  </title>
+
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,
+                                initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap core CSS -->
+  <!-- Bootstrap core JavaScript ================================================== -->
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <link rel="stylesheet" href="{% static 'stylesheets/base.css' %}">
+</head>
+
+<body>
+
+  <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand nav-text" href="#">BeachVotes</a>
+      </div>
+      <div class="collapse navbar-collapse" id="nav-collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="{% url 'index' %}">Home</a></li>
+          <li><a href="{% url 'show_polls' %}">Polls</a></li>
+          <li><a href="{% url 'my_profile' %}">My Account</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div>
+    {% block body_block %}
+    {% endblock %}
+  </div>
+
+</body>
+</html>
