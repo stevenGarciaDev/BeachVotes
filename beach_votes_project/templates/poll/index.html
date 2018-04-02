@@ -7,13 +7,7 @@
     <h1>BeachVotes</h1>
     <h2>A place to vote for things you want.</h2>
 
-    {% if registered %}
-      <h2>You are registered!!</h2>
-    {% else %}
-      <h2>You are NOT registered!</h2>
-    {% endif %}
-
-    <div>
+    <div class="container col-md-6 col-md-offset-3">
       <h1>Welcome!</h1>
       <a href="{% url 'sign_up' %}" class="btn btn-primary btn-lg btn-block">Sign Up</a>
       <a href="{% url 'login' %}" class="btn btn-warning btn-lg btn-block">Log In</a>
