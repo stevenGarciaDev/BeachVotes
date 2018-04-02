@@ -14,6 +14,10 @@ body {
   height: 500px;
 }
 
+input {
+  color: black;
+}
+
 /* -----------------
  Specific Styles for index.html page
 ------------------ */

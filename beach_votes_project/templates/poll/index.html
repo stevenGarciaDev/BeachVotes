@@ -7,6 +7,12 @@
     <h1>BeachVotes</h1>
     <h2>A place to vote for things you want.</h2>
 
+    {% if registered %}
+      <h2>You are registered!!</h2>
+    {% else %}
+      <h2>You are NOT registered!</h2>
+    {% endif %}
+
     <form method="POST" class="form-horizontal" action="{% url 'index' %}">
       {% csrf_token %}
 
@@ -35,8 +41,8 @@
         {{ user_form.as_p }}
         {{ user_profile_form.as_p }}
 
-        <button class="btn btn-primary btn-lg btn-block">Sign Up</button>
-        <button class="btn btn-warning btn-lg btn-block">Log In</button>
+        <button class="btn btn-primary btn-lg btn-block" name="submit">Sign Up</button>
+        <!-- <button class="btn btn-warning btn-lg btn-block">Log In</button> -->
 
         <a href="#">Forgot Password?</a>
 

@@ -11,7 +11,7 @@ def index(request):
         user_form = UserForm(data = request.POST)
         user_profile_form = UserProfileForm(data = request.POST)
 
-        if user_form.is_valild() and user_profile_form.is_valid():
+        if user_form.is_valid() and user_profile_form.is_valid():
             user = user_form.save()
             # this hashes the password, encrypting it
             user.set_password(user.password)
