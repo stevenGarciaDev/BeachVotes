@@ -46,3 +46,9 @@ def show_polls(request):
 
 def view_poll(request):
     return render(request, 'poll/view_poll.html', {})
+
+def login(request):
+    return render(request, 'poll/login.html', {})
+
+def sign_up(request):
+    return render(request, 'poll/sign_up.html', {})

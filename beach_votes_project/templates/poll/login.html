@@ -1,0 +1,12 @@
+{% extends 'poll/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+  <h1>Login</h1>
+
+  <div>
+    <h2>Don't have an account?</h2>
+    <a href="{% url 'sign_up' %}" class="btn btn-primary btn-lg btn-block">Sign Up</button>
+  </div>
+
+{% endblock %}

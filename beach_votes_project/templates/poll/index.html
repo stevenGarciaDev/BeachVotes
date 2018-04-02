@@ -13,42 +13,12 @@
       <h2>You are NOT registered!</h2>
     {% endif %}
 
-    <form method="POST" class="form-horizontal" action="{% url 'index' %}">
-      {% csrf_token %}
+    <div>
+      <h1>Welcome!</h1>
+      <a href="{% url 'sign_up' %}" class="btn btn-primary btn-lg btn-block">Sign Up</a>
+      <a href="{% url 'login' %}" class="btn btn-warning btn-lg btn-block">Log In</a>
+    </div>
 
-      <div class="container col-md-6 col-md-offset-3">
-
-        <!-- <div class="form-group">
-          <label for="username" class="control-label">Username:</label>
-          <input type="text" class="form-control" id="username">
-        </div>
-
-        <div class="form-group">
-          <label for="email" class="control-label">Email:</label>
-          <input type="text" class="form-control" id="email">
-        </div>
-
-        <div class="form-group">
-          <label for="password" class="control-label">Password:</label>
-          <input type="password" class="form-control" id="password">
-        </div>
-
-        <div class="form-group">
-          <label for="password_confirmation" class="control-label">Password Confirmation:</label>
-          <input type="password" class="form-control" id="password_confirmation">
-        </div> -->
-
-        {{ user_form.as_p }}
-        {{ user_profile_form.as_p }}
-
-        <button class="btn btn-primary btn-lg btn-block" name="submit">Sign Up</button>
-        <!-- <button class="btn btn-warning btn-lg btn-block">Log In</button> -->
-
-        <a href="#">Forgot Password?</a>
-
-      </div><!-- end of container for form -->
-    </form>
-
-  </div><!-- end of div containing 'call to action' -->
+  </div><!-- end of div containing 'jumbotron' class -->
 
 {% endblock %}
