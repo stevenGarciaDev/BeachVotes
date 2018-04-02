@@ -1,17 +1,43 @@
 from __future__ import unicode_literals
 
 from django.db import models
+from django.template.defaultfilters import slugify
+from django.contrib.auth.models import User
+import datetime
 
 #Creates model for - Categories: categorized by the following
 #   Category type
 class Category(models.Model):
-    group_name = models.CharField(max_length = 30, unique = True, null = False)
+    group_name = models.CharField(max_length = 50, unique = True, null = False)
+    slug = models.SlugField(blank = True)
+
+    # every time the category name changes, so will the slug field
+    # to create Human Readable URLs
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
+
+    def __str__(self):
+        return self.group_name
 
     class Meta:
         verbose_name_plural = 'Categories'
 
+#Creates model for - UserProfile: categorized by the following
+#   Username -  Unique identifier for a user, a sequence of characters that should be unique per user
+#   Email    -  Unique identifier for proof of user authenticity
+# class User(models.Model):
+#     username = models.CharField(max_length = 50, unique = True, null = False)
+#     email = models.EmailField(null = False)
+#
+#     def __str__(self):
+#         return self.username
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
     def __str__(self):
-        return self.group_name
+        return self.user.username
 
 #Creates model for - Polls: categorized by the following
 #   Question -          This is the title of the poll as well as the question for the Poll
@@ -20,23 +46,21 @@ class Category(models.Model):
 #   End date -          Date in which the poll will/is closed
 class Poll(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-
+    poll_creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     title_question = models.CharField(max_length = 128, unique = True, null = False)
-    start_date = models.DateTimeField( auto_now = False, auto_now_add = True, null = False)
-    end_date =  models.DateTimeField
+    start_date = models.DateField(default = datetime.date.today, null = False)
+    end_date =  models.DateField(default = datetime.date.today() + datetime.timedelta(days=1),
+                                 null = False)
 
     def __str__(self):
         return self.title_question
 
-#Creates model for - User: categorized by the following
-#   Username -  Unique identifier for a user, a sequence of characters that should be unique per user
-#   Email    -  Unique identifier for proof of user authenticity
-class User(models.Model):
-    username = models.CharField(max_length = 50, unique = True, null = False)
-    email = models.EmailField(null = False)
+class PollAnswerChoice(models.Model):
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
+    answer = models.CharField(max_length = 50, null = False)
 
     def __str__(self):
-        return self.username
+        return self.answer
 
 #Creates model for - Votes: Categorized by the following
 #   User    -   Links the specific user who has created the vote to prevent multiple cases of voting on the same Poll
@@ -44,10 +68,11 @@ class User(models.Model):
 #   comment -   Comment by choice, left by the user should they choose
 #   Date    -   Date stamping the date in which the user has cast the vote
 class Vote(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     vote_choice = models.CharField(max_length = 50, unique = False, null = False)
     comment = models.CharField(max_length = 144, unique = False, null = False)
-    date_of_vote = models.DateTimeField( auto_now = False, auto_now_add = False, null = False )
+    date_of_vote = models.DateField(null = False)
 
     def __str__(self):
         return "The vote of : " + self.vote_choice + " was submitted by user:  " + self.user.username
