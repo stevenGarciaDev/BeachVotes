@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
-from poll.models import Category, Poll, Vote, UserProfile
+from poll.models import Category, Poll, Vote, UserProfile, PollAnswerChoice
 
 class CategoryForm(forms.ModelForm):
     group_name = forms.CharField(label = 'Category Name',
@@ -10,12 +10,12 @@ class CategoryForm(forms.ModelForm):
 
     class Meta:
         model = Category
-        fields = ('group_name'))
+        fields = ('group_name', )
 
 class PollForm(forms.ModelForm):
     title_question = forms.CharField(label = 'Title',
                                     max_length = 128,
-                                    help_text = 'Please enter the poll title'))
+                                    help_text = 'Please enter the poll title')
     end_date = forms.DateField(label = 'Closing Date', required = True)
     start_date = forms.DateField(widget = forms.HiddenInput())
 
@@ -28,7 +28,7 @@ class PollAnswerChoiceForm(forms.ModelForm):
 
     class Meta:
         model = PollAnswerChoice
-        fields = ('answer')
+        fields = ('answer', )
 
 class UserProfileForm(forms.ModelForm):
 
