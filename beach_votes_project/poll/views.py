@@ -14,3 +14,6 @@ def my_profile(request):
 
 def show_polls(request):
     return render(request, 'poll/show_polls.html', {})
+
+def view_poll(request):
+    return render(request, 'poll/view_poll.html', {})
