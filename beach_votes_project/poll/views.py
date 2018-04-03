@@ -1,7 +1,14 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse
 from poll.models import *
 from poll.forms import *
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login
+from django.core.urlresolvers import reverse
+
+@login_required
+def restricted(request):
+    return HttpResponse("Logged in")
 
 #Combines a template with HttpResponse and returns rendered text via web
 def index(request):
@@ -26,29 +33,70 @@ def sign_up(request):
     registered = False
 
     if request.method == 'POST':
-        user_form = UserForm(data = request.POST)
-        user_profile_form = UserProfileForm(data = request.POST)
 
-        if user_form.is_valid() and user_profile_form.is_valid():
+        # user_form = UserForm()
+        # user_form.username = request.POST.get('username')
+        # user_form.email = request.POST.get('email')
+        # user_form.input_password = request.POST.get('password')
+        user_form = UserForm(data = request.POST)
+        profile_form = UserProfileForm(data = request.POST)
+
+        if user_form.is_valid() and profile_form.is_valid():
             user = user_form.save()
+
             # this hashes the password, encrypting it
             user.set_password(user.password)
             user.save()
 
-            user_profile = user_profile_form.save(commit = False)
-            # here we link the models together as to form the
+            user_profile = profile_form.save(commit = False)
+
+            # link together models of user_profile and user together
             # Foreign Key relationship between User and UserProfile
             user_profile.user = user
+            user_profile.save()
 
             registered = True
+
+            print("successful")
 
     # in case of GET request
     else:
         user_form = UserForm()
-        user_profile_form = UserProfileForm()
+        profile_form = UserProfileForm()
 
     return render(request, 'poll/sign_up.html',
         context = {
             'user_form': user_form,
-            'user_profile_form': user_profile_form,
+            'profile_form': profile_form,
             'registered': registered})
+
+
+    # registered = False
+    #
+    # if request.method == 'POST':
+    #     user_form = UserForm(data = request.POST)
+    #     user_profile_form = UserProfileForm(data = request.POST)
+    #
+    #     if user_form.is_valid() and user_profile_form.is_valid():
+    #         user = user_form.save()
+    #         # this hashes the password, encrypting it
+    #         user.set_password(user.password)
+    #         user.save()
+    #
+    #         user_profile = user_profile_form.save(commit = False)
+    #         # here we link the models together as to form the
+    #         # Foreign Key relationship between User and UserProfile
+    #         user_profile.user = user
+    #
+    #         registered = True
+    #
+    # # in case of GET request
+    # else:
+    #     user_form = UserForm()
+    #     user_profile_form = UserProfileForm()
+    #
+    # return render(request, 'poll/sign_up.html',
+    #     context = {
+    #         'user_form': user_form,
+    #         'user_profile_form': user_profile_form,
+    #         'registered': registered})
