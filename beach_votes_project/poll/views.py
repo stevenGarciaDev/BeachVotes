@@ -4,7 +4,6 @@ from poll.models import *
 from poll.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login
-from django.core.urlresolvers import reverse
 
 @login_required
 def restricted(request):
@@ -70,33 +69,5 @@ def sign_up(request):
             'profile_form': profile_form,
             'registered': registered})
 
-
-    # registered = False
-    #
-    # if request.method == 'POST':
-    #     user_form = UserForm(data = request.POST)
-    #     user_profile_form = UserProfileForm(data = request.POST)
-    #
-    #     if user_form.is_valid() and user_profile_form.is_valid():
-    #         user = user_form.save()
-    #         # this hashes the password, encrypting it
-    #         user.set_password(user.password)
-    #         user.save()
-    #
-    #         user_profile = user_profile_form.save(commit = False)
-    #         # here we link the models together as to form the
-    #         # Foreign Key relationship between User and UserProfile
-    #         user_profile.user = user
-    #
-    #         registered = True
-    #
-    # # in case of GET request
-    # else:
-    #     user_form = UserForm()
-    #     user_profile_form = UserProfileForm()
-    #
-    # return render(request, 'poll/sign_up.html',
-    #     context = {
-    #         'user_form': user_form,
-    #         'user_profile_form': user_profile_form,
-    #         'registered': registered})
+def reset_password(request):
+    return render(request, 'poll/reset_password.html', {})
