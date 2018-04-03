@@ -1,0 +1,9 @@
+{% extends 'poll/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+  <div class="container col-md-6 col-md-offset-3 text-center">
+    <h2>You need to login to access that page</h2>
+    <a href="{% url 'index' %}" class="btn btn-success btn-lg btn-block">Sign up to access</a>
+  </div>
+{% endblock %}

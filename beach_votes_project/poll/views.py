@@ -6,10 +6,6 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
 @login_required
-def restricted(request):
-    return render(request, 'poll/index.html', {})
-
-@login_required
 def user_logout(request):
     logout
     return render(request, 'poll/index.html', {})
@@ -80,3 +76,6 @@ def sign_up(request):
 
 def reset_password(request):
     return render(request, 'poll/reset_password.html', {})
+
+def restricted_page(request):
+    return render(request, 'poll/restricted_page.html', {})
