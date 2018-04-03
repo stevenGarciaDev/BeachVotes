@@ -3,25 +3,34 @@ from django.http import HttpResponseRedirect, HttpResponse
 from poll.models import *
 from poll.forms import *
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 
 @login_required
 def restricted(request):
-    return HttpResponse("Logged in")
+    return render(request, 'poll/index.html', {})
+
+@login_required
+def user_logout(request):
+    logout
+    return render(request, 'poll/index.html', {})
 
 #Combines a template with HttpResponse and returns rendered text via web
 def index(request):
     return render(request, 'poll/index.html', {})
 
+@login_required
 def create_poll(request):
     return render(request, 'poll/create_poll.html', {})
 
+@login_required
 def my_profile(request):
     return render(request, 'poll/my_profile.html', {})
 
+@login_required
 def show_polls(request):
     return render(request, 'poll/show_polls.html', {})
 
+@login_required
 def view_poll(request):
     return render(request, 'poll/view_poll.html', {})
 
