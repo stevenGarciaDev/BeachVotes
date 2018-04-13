@@ -38,10 +38,6 @@ def sign_up(request):
 
     if request.method == 'POST':
 
-        # user_form = UserForm()
-        # user_form.username = request.POST.get('username')
-        # user_form.email = request.POST.get('email')
-        # user_form.input_password = request.POST.get('password')
         user_form = UserForm(data = request.POST)
         profile_form = UserProfileForm(data = request.POST)
 
