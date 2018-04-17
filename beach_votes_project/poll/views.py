@@ -16,7 +16,28 @@ def index(request):
 
 @login_required
 def create_poll(request):
-    return render(request, 'poll/create_poll.html', {})
+    context_dict = { 'invalid_input' : False }
+
+    if request.method == 'POST':
+
+        poll_form = PollForm(date = request.POST)
+
+        if poll_form.is_valid():
+
+            title_question = request.POST.get('title_question')
+            end_date = request.POST.get('end_date')
+
+            poll = Poll(title_question = title_question, end_date = end_date)
+            poll.save()
+
+            return render(request, 'poll/show_polls.html', {})
+        else:
+            context_dict['error_message'] = "Invalid input"
+            return render(request, 'poll/create_poll.html', context_dict)
+
+    else:
+        # 'GET' request
+        return render(request, 'poll/create_poll.html', {})
 
 @login_required
 def my_profile(request):
@@ -31,7 +52,7 @@ def view_poll(request):
     return render(request, 'poll/view_poll.html', {})
 
 def login_user(request):
-    is_existing_user = False
+    context_dict = { 'invalid_input' : False }
 
     if request.method == 'POST':
 
@@ -47,17 +68,20 @@ def login_user(request):
                 #return HttpResponseRedirect(reverse('index'))
                 return HttpResponse("Valid login details: {0}, {1}".format(username, password))
             else:
-                return HttpResponse("Your beachvotes account is disabled")
+                context_dict['invalid_input'] = True
+                return render(request, 'poll/login.html', context_dict)
 
         else:
-            return HttpResponse("Invalid login details: {0}, {1}".format(username, password))
+            context_dict['invalid_input'] = True
+            context_dict['error_message'] = "Invalid login details"
+            return render(request, 'poll/login.html', context_dict)
 
     else:
         # 'GET' request
         return render(request, 'poll/login.html', {})
 
 def sign_up(request):
-    registered = False
+    invalid_input = False
 
     if request.method == 'POST':
 
@@ -78,20 +102,18 @@ def sign_up(request):
             user_profile.user = user
             user_profile.save()
 
-            registered = True
-
             return render(request, 'poll/show_polls.html', context = {})
+        else:
+            invalid_input = True
+            error_message = "Invalid Input: Please fill in all fields"
+
+            return render(request, 'poll/sign_up.html',
+                context = {
+                    'invalid_input': invalid_input,
+                    'error_message': error_message})
 
     # in case of GET request
-    else:
-        user_form = UserForm()
-        profile_form = UserProfileForm()
-
-    return render(request, 'poll/sign_up.html',
-        context = {
-            'user_form': user_form,
-            'profile_form': profile_form,
-            'registered': registered})
+    return render(request, 'poll/sign_up.html', {})
 
 def reset_password(request):
     return render(request, 'poll/reset_password.html', {})

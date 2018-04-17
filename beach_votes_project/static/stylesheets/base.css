@@ -23,6 +23,16 @@ input {
   color: black;
 }
 
+.error_message {
+  color: red;
+  font-style: italic;
+  margin: 15px;
+}
+
+.restricted_page {
+  margin-top: 50px;
+}
+
 
 /* -----------------
  Specific Styles for index.html page
