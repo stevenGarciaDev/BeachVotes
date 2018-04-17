@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 
 @login_required
 def user_logout(request):
-    logout
+    logout(request)
     return render(request, 'poll/index.html', {})
 
 #Combines a template with HttpResponse and returns rendered text via web
@@ -16,8 +16,7 @@ def index(request):
 
 @login_required
 def create_poll(request):
-    context_dict = { 'invalid_input' : False,
-                     'logged_in' : True }
+    context_dict = { 'invalid_input' : False }
 
     if request.method == 'POST':
 
@@ -42,17 +41,14 @@ def create_poll(request):
 
 @login_required
 def my_profile(request):
-    context_dict = { 'logged_in' : True }
     return render(request, 'poll/my_profile.html', {})
 
 @login_required
 def show_polls(request):
-    context_dict = { 'logged_in' : True }
     return render(request, 'poll/show_polls.html', {})
 
 @login_required
 def view_poll(request):
-    context_dict = { 'logged_in' : True }
     return render(request, 'poll/view_poll.html', {})
 
 def login_user(request):

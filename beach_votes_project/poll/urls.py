@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^login', views.login_user, name='login'),
     url(r'^sign_up', views.sign_up, name='sign_up'),
     url(r'^reset_password', views.reset_password, name = 'reset_password'),
-    url(r'^restricted_page', views.restricted_page, name = 'restricted_page')
+    url(r'^restricted_page', views.restricted_page, name = 'restricted_page'),
+    url(r'^logout/$', views.user_logout, name='logout'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
