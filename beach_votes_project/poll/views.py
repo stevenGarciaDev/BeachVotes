@@ -30,8 +30,31 @@ def show_polls(request):
 def view_poll(request):
     return render(request, 'poll/view_poll.html', {})
 
-def login(request):
-    return render(request, 'poll/login.html', {})
+def login_user(request):
+    is_existing_user = False
+
+    if request.method == 'POST':
+
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(username = username, password = password)
+
+        if user is not None:
+
+            if user.is_active:
+                login(request, user)
+                #return HttpResponseRedirect(reverse('index'))
+                return HttpResponse("Valid login details: {0}, {1}".format(username, password))
+            else:
+                return HttpResponse("Your beachvotes account is disabled")
+
+        else:
+            return HttpResponse("Invalid login details: {0}, {1}".format(username, password))
+
+    else:
+        # 'GET' request
+        return render(request, 'poll/login.html', {})
 
 def sign_up(request):
     registered = False
@@ -58,6 +81,8 @@ def sign_up(request):
             registered = True
 
             print("successful")
+
+            return render(request, 'polls/show_polls.html', context = {})
 
     # in case of GET request
     else:

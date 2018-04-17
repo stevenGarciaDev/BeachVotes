@@ -23,7 +23,11 @@
         <input type="password" class="form-control" name="password" id="password">
       </div>
 
-      <button class="btn btn-primary btn-lg btn-block" name="submit">Create New Account</button>
+      <button class="btn btn-primary btn-lg btn-block" name="submit">
+        <a href="{% url 'show_polls' %}">
+          Create New Account
+        </a>
+      </button>
 
     </form>
 
