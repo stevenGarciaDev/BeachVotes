@@ -80,9 +80,7 @@ def sign_up(request):
 
             registered = True
 
-            print("successful")
-
-            return render(request, 'polls/show_polls.html', context = {})
+            return render(request, 'poll/show_polls.html', context = {})
 
     # in case of GET request
     else:
