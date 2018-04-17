@@ -16,7 +16,8 @@ def index(request):
 
 @login_required
 def create_poll(request):
-    context_dict = { 'invalid_input' : False }
+    context_dict = { 'invalid_input' : False,
+                     'logged_in' : True }
 
     if request.method == 'POST':
 
@@ -41,14 +42,17 @@ def create_poll(request):
 
 @login_required
 def my_profile(request):
+    context_dict = { 'logged_in' : True }
     return render(request, 'poll/my_profile.html', {})
 
 @login_required
 def show_polls(request):
+    context_dict = { 'logged_in' : True }
     return render(request, 'poll/show_polls.html', {})
 
 @login_required
 def view_poll(request):
+    context_dict = { 'logged_in' : True }
     return render(request, 'poll/view_poll.html', {})
 
 def login_user(request):
@@ -66,7 +70,7 @@ def login_user(request):
             if user.is_active:
                 login(request, user)
                 #return HttpResponseRedirect(reverse('index'))
-                return HttpResponse("Valid login details: {0}, {1}".format(username, password))
+                return render(request, 'poll/show_polls.html', context_dict)
             else:
                 context_dict['invalid_input'] = True
                 return render(request, 'poll/login.html', context_dict)

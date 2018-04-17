@@ -40,10 +40,19 @@
       </div>
       <div class="collapse navbar-collapse" id="nav-collapse">
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{% url 'index' %}">Home</a></li>
-          <li><a href="{% url 'show_polls' %}">View Polls</a></li>
-          <li><a href="{% url 'create_poll' %}">Create Poll</a></li>
-          <li><a href="{% url 'my_profile' %}">My Account</a></li>
+
+          {% if logged_in %}
+            <li><a href="{% url 'show_polls' %}">View Polls</a></li>
+            <li><a href="{% url 'create_poll' %}">Create Poll</a></li>
+            <li><a href="{% url 'my_profile' %}">My Account</a></li>
+            <li><a href="#">Logout</a></li>
+          {% else %}
+            <li><a href="{% url 'index' %}">Home</a></li>
+            <li><a href="{% url 'show_polls' %}">View Polls</a></li>
+            <li><a href="{% url 'create_poll' %}">Create Poll</a></li>
+            <li><a href="{% url 'my_profile' %}">My Account</a></li>
+          {% endif %}
+
         </ul>
       </div>
     </div>
