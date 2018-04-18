@@ -38,7 +38,7 @@ def create_poll(request):
 
         if poll_form.is_valid():
 
-            poll = Poll(title_question = title_question, end_date = end_date)
+            poll = poll_form.save()
 
             # link the new poll with the corresponding Category table record
             selected_category = request.POST.get('category')
@@ -46,27 +46,22 @@ def create_poll(request):
             poll.category = category
 
             # link the new poll with the user that created it
-            
-            poll.poll_creator = creator
+            print("user id is {0}".format(request.user.id))
+
+            User.objects.get( id = request.user.id )
+            poll.poll_creator = user
 
             poll.save()
 
             print("successful")
             return render(request, 'poll/show_polls.html', {})
         else:
-
-            print("invalid input")
-            title_question = request.POST.get('title_question')
-            end_date = request.POST.get('end_date')
-
-            print("the end date is {0}, the title is {1}".format(end_date, title_question))
-
             context_dict['error_message'] = "Invalid input"
+            print("invalid input, not valid form")
             return render(request, 'poll/create_poll.html', context_dict)
 
     else:
         # 'GET' request
-        print("get create poll page")
         return render(request, 'poll/create_poll.html', context_dict)
 
 @login_required
@@ -150,3 +145,7 @@ def reset_password(request):
 
 def restricted_page(request):
     return render(request, 'poll/restricted_page.html', {})
+
+# -----------------
+# Helper methods
+# -----------------
