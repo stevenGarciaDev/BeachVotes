@@ -5,25 +5,29 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE',
 import django
 django.setup()
 
-from poll.models import *
+from poll.models import Category
 
 def populate():
 
-    users = [
+    categories = [
+        'Politics',
+        'Sports',
+        'Relationships',
+        'Science',
+        'Entertainment',
+        'Food',
+        'Other']
 
-    ]
+    i = 0
+    while i < len(categories):
+        add_category(categories[i])
+        i += 1
 
-    user_profiles = [
+def add_category(name):
+    new_category = Category.objects.get_or_create(group_name = name)
+    return new_category[0]
 
-    ]
-
-    polls = [
-        {'title_question': '',
-         'end_date': },
-        {'title_question': '',
-         'end_date': },
-        {'title_question': '',
-         'end_date': },
-        {'title_question': '',
-         'end_date': }
-    ]
+# start execution
+if __name__ == '__main__':
+    print("Starting BeachVotes population script")
+    populate()

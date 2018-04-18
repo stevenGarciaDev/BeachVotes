@@ -9,13 +9,6 @@ import datetime
 #   Category type
 class Category(models.Model):
     group_name = models.CharField(max_length = 50, unique = True, null = False)
-    slug = models.SlugField(blank = True)
-
-    # every time the category name changes, so will the slug field
-    # to create Human Readable URLs
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.group_name
