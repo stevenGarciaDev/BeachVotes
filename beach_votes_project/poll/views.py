@@ -49,7 +49,8 @@ def create_poll(request):
             poll.poll_creator = user
             poll.save()
 
-            return render(request, 'poll/show_polls.html', {})
+            context_dict = { 'polls' : Poll.objects.all() }
+            return render(request, 'poll/show_polls.html', context_dict)
         except:
             context_dict['error_message'] = "Invalid input"
             print("invalid input, not valid form")
@@ -88,7 +89,7 @@ def login_user(request):
 
             if user.is_active:
                 login(request, user)
-                #return HttpResponseRedirect(reverse('index'))
+                context_dict['polls'] = Poll.objects.all()
                 return render(request, 'poll/show_polls.html', context_dict)
             else:
                 context_dict['invalid_input'] = True
@@ -125,7 +126,8 @@ def sign_up(request):
             user_profile.user = user
             user_profile.save()
 
-            return render(request, 'poll/show_polls.html', context = {})
+            context_dict = { 'polls' : Poll.objects.all() }
+            return render(request, 'poll/show_polls.html',  context_dict)
         else:
             invalid_input = True
             error_message = "Invalid Input: Please fill in all fields"
@@ -147,3 +149,6 @@ def restricted_page(request):
 # -----------------
 # Helper methods
 # -----------------
+
+def retrieve_all_polls(request):
+    return Poll.objects.all()

@@ -11,15 +11,15 @@
     {% if polls %}
 
       {% for poll in polls %}
-      
+
         <div class="poll-container text-center">
-          <h1>{{ poll.title_question }}</h1>
-          <h2>{{ poll.category }}</h2>
+          <h1>Poll Title: {{ poll.title_question }}</h1>
+          <h2>Category: {{ poll.category }}</h2>
 
           <a href="#" class="btn btn-success btn-lg btn-block">
             Participate in Poll
           </a>
-        </div>
+        </div><br /><br />
 
       {% endfor %}
 
