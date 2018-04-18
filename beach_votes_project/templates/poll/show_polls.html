@@ -10,14 +10,18 @@
 
     {% if polls %}
 
-      <div class="poll-container text-center">
-        <h1>{{ poll.title_question }}</h1>
-        <h2>{{ poll.category }}</h2>
+      {% for poll in polls %}
+      
+        <div class="poll-container text-center">
+          <h1>{{ poll.title_question }}</h1>
+          <h2>{{ poll.category }}</h2>
 
-        <a href="#" class="btn btn-success btn-lg btn-block">
-          Participate in Poll
-        </a>
-      </div>
+          <a href="#" class="btn btn-success btn-lg btn-block">
+            Participate in Poll
+          </a>
+        </div>
+
+      {% endfor %}
 
     {% else %}
       <h1>Currently No Polls to Display</h1>
