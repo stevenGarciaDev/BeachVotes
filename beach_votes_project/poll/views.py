@@ -23,50 +23,37 @@ def create_poll(request):
 
     if request.method == 'POST':
 
-        # use end_date field and instantiate a datetime object
-        # end_date = request.POST.get('end_date')
-        # end_date = end_date.split('-')
-        #
-        # year = int( end_date[0] )
-        # month = int( end_date[1] )
-        # day = int( end_date[2] )
-        #
-        # end_date_object = datetime.date(year, month, day)
-        # title_question = request.POST.get('title_question')
+        try:
+            poll = Poll()
+            poll.title_question = request.POST.get('title_question')
 
-        poll_form = PollForm()
-        poll_form.title_question = request.POST.get('title_question')
-        poll_form.end_date = request.POST.get('end_date')
+            # use end_date field and instantiate a datetime object
+            end_date = request.POST.get('end_date')
+            end_date = end_date.split('-')
 
-        #print("the end date is {0} and the title is {1}".format( end_date_object, title_question))
+            year = int( end_date[0] )
+            month = int( end_date[1] )
+            day = int( end_date[2] )
 
-        if poll_form.is_valid():
+            end_date_object = datetime.date(year, month, day)
+            poll.end_date = end_date_object
 
-            poll = poll_form.save()
 
             # link the new poll with the corresponding Category table record
             selected_category = request.POST.get('category')
             category = Category.objects.get(group_name = selected_category)
             poll.category = category
 
-            # link the new poll with the user that created it
-            print("user id is {0}".format(request.user.id))
-
-            User.objects.get( id = request.user.id )
+            # associate the poll with the user that created it
+            user = User.objects.get( id = request.user.id )
             poll.poll_creator = user
-
             poll.save()
 
-            print("successful")
             return render(request, 'poll/show_polls.html', {})
-        else:
+        except:
             context_dict['error_message'] = "Invalid input"
             print("invalid input, not valid form")
 
-            print("here are the errors")
-            print (poll_form.errors)
-            print("here are the non field errors")
-            print(poll_form.non_field_errors)
             return render(request, 'poll/create_poll.html', context_dict)
 
     else:

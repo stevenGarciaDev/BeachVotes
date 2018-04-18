@@ -9,7 +9,16 @@
   <div class="container col-md-6 col-md-offset-3">
 
     {% if polls %}
-      <h1>View available polls</h1>
+
+      <div class="poll-container text-center">
+        <h1>{{ poll.title_question }}</h1>
+        <h2>{{ poll.category }}</h2>
+
+        <a href="#" class="btn btn-success btn-lg btn-block">
+          Participate in Poll
+        </a>
+      </div>
+
     {% else %}
       <h1>Currently No Polls to Display</h1>
     {% endif %}
