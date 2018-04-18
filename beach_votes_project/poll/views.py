@@ -79,7 +79,9 @@ def my_profile(request):
 
 @login_required
 def show_polls(request):
-    return render(request, 'poll/show_polls.html', {})
+    context_dict = { 'polls' : Poll.objects.all() }
+
+    return render(request, 'poll/show_polls.html', context_dict)
 
 @login_required
 def view_poll(request):

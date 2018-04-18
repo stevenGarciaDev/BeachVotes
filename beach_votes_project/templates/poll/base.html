@@ -42,13 +42,13 @@
         <ul class="nav navbar-nav navbar-right">
 
           {% if user.is_authenticated %}
-            <li><a href="{% url 'show_polls' %}">View Polls</a></li>
+            <li><a href="{% url 'show_polls' %}">Show Polls</a></li>
             <li><a href="{% url 'create_poll' %}">Create Poll</a></li>
             <li><a href="{% url 'my_profile' %}">My Account</a></li>
             <li><a href="{% url 'logout' %}">Logout</a></li>
           {% else %}
             <li><a href="{% url 'index' %}">Home</a></li>
-            <li><a href="{% url 'show_polls' %}">View Polls</a></li>
+            <li><a href="{% url 'show_polls' %}">Show Polls</a></li>
             <li><a href="{% url 'create_poll' %}">Create Poll</a></li>
             <li><a href="{% url 'my_profile' %}">My Account</a></li>
           {% endif %}
