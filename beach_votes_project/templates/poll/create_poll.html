@@ -27,7 +27,14 @@
 
       <div class="form-group">
         <label for="category">Most Relevant Category:</label>
-        <input type="text" class="form-control" id="category" name="category">
+
+        <select name="category" id="category" class="form-control">
+
+          {% for category in categories %}
+            <option style="color: black;" value="{{ category.group_name }}">{{ category.group_name }}</option>
+          {% endfor %}
+
+        </select>
       </div>
 
     </form>

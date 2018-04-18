@@ -16,7 +16,10 @@ def index(request):
 
 @login_required
 def create_poll(request):
-    context_dict = { 'invalid_input' : False }
+    categories = Category.objects.all()
+
+    context_dict = { 'categories' : categories}
+    context_dict['invalid_input'] = False
 
     if request.method == 'POST':
 
@@ -37,7 +40,7 @@ def create_poll(request):
 
     else:
         # 'GET' request
-        return render(request, 'poll/create_poll.html', {})
+        return render(request, 'poll/create_poll.html', context_dict)
 
 @login_required
 def my_profile(request):
