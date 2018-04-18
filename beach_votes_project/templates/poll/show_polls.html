@@ -7,6 +7,12 @@
 
 {% block body_block %}
   <div class="container col-md-6 col-md-offset-3">
-    <h1 class="text-center">Show Polls</h1>
+
+    {% if polls %}
+      <h1>View available polls</h1>
+    {% else %}
+      <h1>Currently No Polls to Display</h1>
+    {% endif %}
+
   </div>
 {% endblock %}
