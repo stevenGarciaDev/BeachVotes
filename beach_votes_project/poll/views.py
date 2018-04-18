@@ -23,23 +23,50 @@ def create_poll(request):
 
     if request.method == 'POST':
 
-        poll_form = PollForm(date = request.POST)
+        poll_form = PollForm(data = request.POST)
+
+        # use end_date field and instantiate a datetime object
+        end_date = request.POST.get('end_date')
+        end_date = end_date.split('-')
+
+        year = int( end_date[0] )
+        month = int( end_date[1] )
+        day = int( end_date[2] )
+
+        end_date_object = datetime.date(year, month, day)
+        poll_form.end_date = end_date_object
 
         if poll_form.is_valid():
 
+            poll = Poll(title_question = title_question, end_date = end_date)
+
+            # link the new poll with the corresponding Category table record
+            selected_category = request.POST.get('category')
+            category = Category.objects.get(group_name = selected_category)
+            poll.category = category
+
+            # link the new poll with the user that created it
+            
+            poll.poll_creator = creator
+
+            poll.save()
+
+            print("successful")
+            return render(request, 'poll/show_polls.html', {})
+        else:
+
+            print("invalid input")
             title_question = request.POST.get('title_question')
             end_date = request.POST.get('end_date')
 
-            poll = Poll(title_question = title_question, end_date = end_date)
-            poll.save()
+            print("the end date is {0}, the title is {1}".format(end_date, title_question))
 
-            return render(request, 'poll/show_polls.html', {})
-        else:
             context_dict['error_message'] = "Invalid input"
             return render(request, 'poll/create_poll.html', context_dict)
 
     else:
         # 'GET' request
+        print("get create poll page")
         return render(request, 'poll/create_poll.html', context_dict)
 
 @login_required

@@ -14,6 +14,7 @@
     {% endif %}
 
     <form method="post" action="{% url 'create_poll' %}">
+      {% csrf_token %}
 
       <div class="form-group">
         <label for="title_question">Title:</label>
@@ -37,11 +38,11 @@
         </select>
       </div>
 
-    </form>
+      <button class="btn btn-warning btn-lg btn-block" name="submit">
+        Create Poll
+      </button>
 
-    <button class="btn btn-warning btn-lg btn-block" name="submit">
-      Create Poll
-    </button>
+    </form>
 
   </div>
 {% endblock %}

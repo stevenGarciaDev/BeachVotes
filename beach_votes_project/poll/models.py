@@ -39,7 +39,7 @@ class UserProfile(models.Model):
 #   End date -          Date in which the poll will/is closed
 class Poll(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
-    poll_creator = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    poll_creator = models.ForeignKey(User, on_delete=models.CASCADE)
     title_question = models.CharField(max_length = 128, unique = True, null = False)
     start_date = models.DateField(default = datetime.date.today, null = False)
     end_date =  models.DateField(default = datetime.date.today() + datetime.timedelta(days=1),
