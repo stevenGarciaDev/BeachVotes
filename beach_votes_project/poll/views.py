@@ -23,18 +23,22 @@ def create_poll(request):
 
     if request.method == 'POST':
 
-        poll_form = PollForm(data = request.POST)
-
         # use end_date field and instantiate a datetime object
-        end_date = request.POST.get('end_date')
-        end_date = end_date.split('-')
+        # end_date = request.POST.get('end_date')
+        # end_date = end_date.split('-')
+        #
+        # year = int( end_date[0] )
+        # month = int( end_date[1] )
+        # day = int( end_date[2] )
+        #
+        # end_date_object = datetime.date(year, month, day)
+        # title_question = request.POST.get('title_question')
 
-        year = int( end_date[0] )
-        month = int( end_date[1] )
-        day = int( end_date[2] )
+        poll_form = PollForm()
+        poll_form.title_question = request.POST.get('title_question')
+        poll_form.end_date = request.POST.get('end_date')
 
-        end_date_object = datetime.date(year, month, day)
-        poll_form.end_date = end_date_object
+        #print("the end date is {0} and the title is {1}".format( end_date_object, title_question))
 
         if poll_form.is_valid():
 
@@ -58,6 +62,11 @@ def create_poll(request):
         else:
             context_dict['error_message'] = "Invalid input"
             print("invalid input, not valid form")
+
+            print("here are the errors")
+            print (poll_form.errors)
+            print("here are the non field errors")
+            print(poll_form.non_field_errors)
             return render(request, 'poll/create_poll.html', context_dict)
 
     else:
