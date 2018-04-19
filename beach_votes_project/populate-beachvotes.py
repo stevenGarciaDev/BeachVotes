@@ -10,11 +10,11 @@ from poll.models import Category
 def populate():
 
     categories = [
-        'Politics',
         'Sports',
-        'Relationships',
         'Science',
         'Entertainment',
+        'Politics',
+        'Relationships',
         'Food',
         'Other']
 
