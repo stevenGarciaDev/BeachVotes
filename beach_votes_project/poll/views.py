@@ -70,19 +70,7 @@ def show_polls(request):
     polls = []
     categories = Category.objects.all()
 
-    # data structure
-    #
-    #     ['categories':  'categories' : ['Entertainment' : [Poll1, Poll2, Poll3],
-    #                       'Politics' : [Poll4, Poll5, Poll6],
-    #                       'Relationships': [Poll7, Poll8, Poll9]
-    #                     }
-
-    category_polls = {}
-    for category in categories:
-        recent_polls = Poll.objects.filter(category = category)
-        category_polls[category.group_name] = recent_polls
-
-    context_dict = { 'categories' : category_polls }
+    context_dict = { 'categories' : categories }
     return render(request, 'poll/show_polls.html', context_dict)
 
 @login_required

@@ -6,52 +6,48 @@
 {% endblock %}
 
 {% block body_block %}
-  <div class="container-fluid bg-3 text-center">
+<div class="container">
 
-    <!-- <div class="container">
-      <h1>Sports</h1>
-    </div>
-
-    <div class="row">
-
-      <div class="col-sm-4 text-center" style="border: 2px solid white; margin: 0px; padding: 20px; border-radius: 5%;">
-        <h1>Poll Title</h1>
-        <a href="#" class="btn btn-success btn-lg btn-block">
-          Participate in Poll
-        </a>
-      </div>
-
-      <div class="col-sm-4 text-center" style="border: 2px solid white; padding: 20px; border-radius: 5%;">
-        <h1>Poll Title</h1>
-        <a href="#" class="btn btn-success btn-lg btn-block">
-          Participate in Poll
-        </a>
-      </div>
-
-      <div class="col-sm-4 text-center" style="border: 2px solid white; padding: 20px; border-radius: 5%;">
-        <h1>Poll Title</h1>
-        <a href="#" class="btn btn-success btn-lg btn-block">
-          Participate in Poll
-        </a>
-      </div>
-
-  </div>
-
-  <a href="#" class="btn btn-warning btn-md">See More Sports Polls</a>
-  <br /> -->
+  <div class="row">
+    <div class="col-md-6">
+      <h3>Categories</h3>
 
   {% if categories %}
-    <h1>Yes categories </h1>
 
+      <ul class="list-group">
+        {% for category in categories %}
 
+        <li class="list-group-item">
+          <a href="#">
+            {{ category.group_name }}
+          </a>
+        </li>
 
+        {% endfor %}
+      </ul>
 
-  {% else %}
-    <h1>No categories </h1>
-  {% endif %}
+      {% else %}
+        <h1>No categories to show </h1>
+      {% endif %}
 
+    </div>
 
+    <div class="col-md-6">
+      <h4>Recent Polls</h4>
 
+      {% if polls %}
 
-  </div>
+        {% for poll in polls %}
+
+        {% endfor %}
+
+      {% else %}
+        <h4>No recent polls to show</h4>
+      {% endif %}
+
+    </div>
+
+  </div><!-- end of class 'row' -->
+
+</div><!-- end of class 'container' -->
 {% endblock %}
