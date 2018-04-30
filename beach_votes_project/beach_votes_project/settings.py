@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
-LOGIN_URL = '/poll/restricted_page.html'
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
@@ -41,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'poll',
+    'registration',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -123,6 +123,18 @@ USE_TZ = True
 
 MEDIA_ROOT = MEDIA_DIR
 MEDIA_URL = '/media/'
+
+# if true, users can register
+REGISTRATION_OPEN = True
+# one week activation window
+ACCOUNT_ACTIVATION_DAYS = 7
+# if True, user will automatically be logged in
+REGISTRATION_AUTO_LOGIN = True
+# the page you want users to redirect to if successful login
+LOGIN_REDIRECT_URL = '/poll/'
+# the page users are directed to if not logged in,
+# and are trying to access a restricted page
+LOGIN_URL = '/poll/restricted_page.html'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.9/howto/static-files/

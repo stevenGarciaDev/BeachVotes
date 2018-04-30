@@ -40,24 +40,18 @@
   <a href="#" class="btn btn-warning btn-md">See More Sports Polls</a>
   <br /> -->
 
-    {% if polls %}
+  {% if categories %}
+    <h1>Yes categories </h1>
 
-      {% for poll in polls %}
 
-        <div class="poll-container text-center">
-          <h1>Poll Title: {{ poll.title_question }}</h1>
-          <h2>Category: {{ poll.category }}</h2>
 
-          <a href="#" class="btn btn-success btn-lg btn-block">
-            Participate in Poll
-          </a>
-        </div><br /><br />
 
-      {% endfor %}
+  {% else %}
+    <h1>No categories </h1>
+  {% endif %}
 
-    {% else %}
-      <h1>Currently No Polls to Display</h1>
-    {% endif %}
+
+
 
   </div>
 {% endblock %}

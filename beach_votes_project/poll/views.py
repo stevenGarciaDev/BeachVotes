@@ -70,11 +70,19 @@ def show_polls(request):
     polls = []
     categories = Category.objects.all()
 
-    for category in categories:
-        three_recent_polls = Poll.objects.get(category = category).order_by('-end_date')[:3]
-        polls += three_recent_polls
+    # data structure
+    #
+    #     ['categories':  'categories' : ['Entertainment' : [Poll1, Poll2, Poll3],
+    #                       'Politics' : [Poll4, Poll5, Poll6],
+    #                       'Relationships': [Poll7, Poll8, Poll9]
+    #                     }
 
-    context_dict = { 'polls' : polls }
+    category_polls = {}
+    for category in categories:
+        recent_polls = Poll.objects.filter(category = category)
+        category_polls[category.group_name] = recent_polls
+
+    context_dict = { 'categories' : category_polls }
     return render(request, 'poll/show_polls.html', context_dict)
 
 @login_required
@@ -132,11 +140,10 @@ def sign_up(request):
             user_profile.user = user
             user_profile.save()
 
-            # username = request.POST.get('username')
-            # password = request.POST.get('password')
-            # user = authenticate(username = username, password = password)
-            # login(request, user)
-            authenticate_user(request)
+            username = request.POST.get('username')
+            password = request.POST.get('password')
+            user = authenticate(username = username, password = password)
+            login(request, user)
 
             context_dict = { 'polls' : Poll.objects.all() }
             return render(request, 'poll/show_polls.html',  context_dict)
@@ -161,24 +168,3 @@ def restricted_page(request):
 # -----------------
 # Helper methods
 # -----------------
-
-def retrieve_all_polls():
-    return Poll.objects.all()
-
-# attempt to authenticate user and return an array, [bool, str]
-# where bool represents True if successfull authentication
-# and string is the message to display to the webpage
-def authenticate_user(request):
-    username = request.POST.get('username')
-    password = request.POST.get('password')
-    user = authenticate(username = username, password = password)
-
-    if user is not None:
-
-        if user.is_active:
-            login(request, user)
-            return [True, "Successfully authenticated user"]
-        else:
-            return [False, "User account is deactivated"]
-    else:
-        return [False, "Invalid login details: Unable to authenticate user"]

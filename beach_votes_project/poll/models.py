@@ -16,16 +16,6 @@ class Category(models.Model):
     class Meta:
         verbose_name_plural = 'Categories'
 
-#Creates model for - UserProfile: categorized by the following
-#   Username -  Unique identifier for a user, a sequence of characters that should be unique per user
-#   Email    -  Unique identifier for proof of user authenticity
-# class User(models.Model):
-#     username = models.CharField(max_length = 50, unique = True, null = False)
-#     email = models.EmailField(null = False)
-#
-#     def __str__(self):
-#         return self.username
-
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
 
