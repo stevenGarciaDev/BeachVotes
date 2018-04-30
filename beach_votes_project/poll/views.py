@@ -67,10 +67,11 @@ def my_profile(request):
 
 @login_required
 def show_polls(request):
-    polls = []
     categories = Category.objects.all()
+    polls = Poll.objects.order_by('-start_date')[:7]
 
     context_dict = { 'categories' : categories }
+    context_dict['polls'] = polls
     return render(request, 'poll/show_polls.html', context_dict)
 
 @login_required

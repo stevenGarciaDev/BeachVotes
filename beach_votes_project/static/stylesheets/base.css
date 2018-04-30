@@ -57,3 +57,11 @@ input {
     height: 700px;
   }
 }
+
+/* -----------------
+ Specific Styles for show_polls.html page
+------------------ */
+
+#create_poll_button {
+  margin: 30px;
+}
