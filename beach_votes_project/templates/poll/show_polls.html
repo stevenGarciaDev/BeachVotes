@@ -24,7 +24,7 @@
         {% for category in categories %}
 
         <li class="list-group-item">
-          <a href="#">
+          <a href="{% url 'view_poll' %}">
             {{ category.group_name }}
           </a>
         </li>
@@ -47,7 +47,7 @@
 
           {% for poll in polls %}
             <li class="list-group-item">
-              <a href="#">
+              <a href="{% url 'view_poll' %}">
                 {{ poll.title_question }}
               </a>
             </li>
