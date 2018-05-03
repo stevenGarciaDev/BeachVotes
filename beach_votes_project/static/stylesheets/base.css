@@ -33,6 +33,10 @@ input {
   margin-top: 50px;
 }
 
+.default-margin {
+  margin-top: 30px;
+}
+
 
 /* -----------------
  Specific Styles for index.html page
@@ -64,4 +68,15 @@ input {
 
 #create_poll_button {
   margin: 30px;
+}
+
+input[type=text] {
+  width: 200px;
+  -webkit-transition: width 0.4s ease-in-out;
+  transition: width 0.4s ease-in-out;
+}
+
+/* When the input field gets focus, change its width to 100% */
+input[type=text]:focus {
+    width: 100%;
 }

@@ -77,7 +77,8 @@ def show_polls(request):
 
 @login_required
 def view_poll(request, poll_id):
-    return render(request, 'poll/view_poll.html', {})
+    context_dict = { 'poll' : Poll.objects.get(id = poll_id) }
+    return render(request, 'poll/view_poll.html', context_dict)
 
 @login_required
 def view_category(request, category_id):
