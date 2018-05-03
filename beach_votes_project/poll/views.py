@@ -4,6 +4,7 @@ from poll.models import *
 from poll.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
+from django.core.urlresolvers import reverse
 
 @login_required
 def user_logout(request):
@@ -75,8 +76,12 @@ def show_polls(request):
     return render(request, 'poll/show_polls.html', context_dict)
 
 @login_required
-def view_poll(request):
+def view_poll(request, poll_id):
     return render(request, 'poll/view_poll.html', {})
+
+@login_required
+def view_category(request, category_id):
+    return render(request, 'poll/view_category.html', {})
 
 def login_user(request):
     context_dict = { 'invalid_input' : False }

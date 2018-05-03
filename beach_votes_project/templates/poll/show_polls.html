@@ -24,7 +24,7 @@
         {% for category in categories %}
 
         <li class="list-group-item">
-          <a href="{% url 'view_poll' %}">
+          <a href="{% url 'view_category' category.id %}">
             {{ category.group_name }}
           </a>
         </li>
@@ -47,7 +47,7 @@
 
           {% for poll in polls %}
             <li class="list-group-item">
-              <a href="{% url 'view_poll' %}">
+              <a href="{% url 'view_poll' poll.id %}">
                 {{ poll.title_question }}
               </a>
             </li>
@@ -64,4 +64,5 @@
   </div><!-- end of class 'row' -->
 
 </div><!-- end of class 'container' -->
+
 {% endblock %}
