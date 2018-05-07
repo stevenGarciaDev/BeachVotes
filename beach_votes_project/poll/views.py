@@ -50,6 +50,9 @@ def create_poll(request):
             poll.poll_creator = user
             poll.save()
 
+            # add choices
+            poll.answer = request.POST.get('answer')
+
             context_dict = { 'polls' : Poll.objects.all() }
             return render(request, 'poll/show_polls.html', context_dict)
         except:
