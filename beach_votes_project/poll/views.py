@@ -87,6 +87,10 @@ def view_poll(request, poll_id):
 def view_category(request, category_id):
     return render(request, 'poll/view_category.html', {})
 
+@login_required
+def vote_poll(request):
+    return render(request, 'poll/view_category.html', {})
+
 def login_user(request):
     context_dict = { 'invalid_input' : False }
 

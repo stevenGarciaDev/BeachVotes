@@ -15,4 +15,5 @@ urlpatterns = [
     url(r'^reset_password', views.reset_password, name = 'reset_password'),
     url(r'^restricted_page', views.restricted_page, name = 'restricted_page'),
     url(r'^logout/$', views.user_logout, name='logout'),
+    url(r'^vote_poll', views.vote_poll, name='vote_poll'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
