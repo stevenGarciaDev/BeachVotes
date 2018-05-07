@@ -53,7 +53,7 @@ def create_poll(request):
             # add choices
             poll.answer = request.POST.get('answer')
 
-            context_dict = { 'polls' : Poll.objects.all() }
+            context_dict['polls'] = Poll.objects.all()
             return render(request, 'poll/show_polls.html', context_dict)
         except:
             context_dict['error_message'] = "Invalid input"
@@ -84,8 +84,9 @@ def view_poll(request, poll_id):
     return render(request, 'poll/view_poll.html', context_dict)
 
 @login_required
-def view_category(request, category_id):
-    return render(request, 'poll/view_category.html', {})
+def view_category(request, category):
+    context_dict = { 'polls' : Poll.objects.filter(category = category) }
+    return render(request, 'poll/view_category.html', context_dict)
 
 @login_required
 def vote_poll(request):
