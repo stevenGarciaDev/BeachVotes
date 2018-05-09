@@ -15,6 +15,9 @@ def user_logout(request):
 def index(request):
     return render(request, 'poll/index.html', {})
 
+def successful_login(request):
+    return render(request, 'poll/successful_login.html', {})
+
 @login_required
 def create_poll(request):
     categories = Category.objects.all()

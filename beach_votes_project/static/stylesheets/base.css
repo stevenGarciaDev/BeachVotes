@@ -23,10 +23,8 @@ input {
   color: black;
 }
 
-.error_message {
+.error-message {
   color: red;
-  font-style: italic;
-  margin: 15px;
 }
 
 .restricted_page {

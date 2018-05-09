@@ -16,4 +16,5 @@ urlpatterns = [
     url(r'^restricted_page', views.restricted_page, name = 'restricted_page'),
     url(r'^logout/$', views.user_logout, name='logout'),
     url(r'^vote_poll', views.vote_poll, name='vote_poll'),
+    url(r'^successful_login', views.successful_login, name='successful_login'),
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
