@@ -96,18 +96,9 @@ def view_poll(request, poll_id):
     poll = Poll.objects.get(id = poll_id)
     answer_choices = PollAnswerChoice.objects.filter(poll = poll)
 
-    if answer_choices:
-        print("associatiated answers found")
-    else:
-        print("no answers found")
-
-    # answer_text = []
-    # for answer_choice in answer_choices:
-    #     answer_text.append( answer_choice.answer )
-
     return render(request, 'poll/view_poll.html',
-        context = {'poll' : poll })
-                   #'answer_choices' : answer_text })
+        context = {'poll' : poll,
+                   'answer_choices' : answer_choices })
 
 @login_required
 def view_category(request, category):
