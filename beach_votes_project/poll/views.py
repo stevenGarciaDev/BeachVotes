@@ -58,9 +58,10 @@ def create_poll(request):
             # then link with Poll
 
             # should return an array
-            answers = request.POST.get('answer')
+            answers = request.POST.getlist('answer')
 
             for answer in answers:
+                print("One of the answers is {name}".format(name = answer))
                 answer_choice = PollAnswerChoice(answer = answer)
                 answer_choice.poll = poll
                 answer_choice.save()
