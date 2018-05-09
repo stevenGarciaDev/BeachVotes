@@ -41,7 +41,7 @@
             {% csrf_token %}
 
           <select name="poll_choice" id="choice" class="form-control">
-            {% for choice in choices %}
+            {% for choice in answer_choices %}
               <option value="{{ choice }}">{{ choice }}</choice>
             {% endfor %}
           </select>

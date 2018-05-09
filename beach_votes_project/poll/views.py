@@ -54,7 +54,16 @@ def create_poll(request):
             poll.save()
 
             # add choices
-            poll.answer = request.POST.get('answer')
+            # must construct a PollAnswerChoice
+            # then link with Poll
+
+            # should return an array
+            answers = request.POST.get('answer')
+
+            for answer in answers:
+                answer_choice = PollAnswerChoice(answer = answer)
+                answer_choice.poll = poll
+                answer_choice.save()
 
             context_dict['polls'] = Poll.objects.all()
             return render(request, 'poll/show_polls.html', context_dict)
@@ -83,8 +92,21 @@ def show_polls(request):
 
 @login_required
 def view_poll(request, poll_id):
-    context_dict = { 'poll' : Poll.objects.get(id = poll_id) }
-    return render(request, 'poll/view_poll.html', context_dict)
+    poll = Poll.objects.get(id = poll_id)
+    answer_choices = PollAnswerChoice.objects.filter(poll = poll)
+
+    if answer_choices:
+        print("associatiated answers found")
+    else:
+        print("no answers found")
+
+    # answer_text = []
+    # for answer_choice in answer_choices:
+    #     answer_text.append( answer_choice.answer )
+
+    return render(request, 'poll/view_poll.html',
+        context = {'poll' : poll })
+                   #'answer_choices' : answer_text })
 
 @login_required
 def view_category(request, category):
@@ -93,6 +115,7 @@ def view_category(request, category):
 
 @login_required
 def vote_poll(request):
+
     return render(request, 'poll/view_category.html', {})
 
 def login_user(request):
