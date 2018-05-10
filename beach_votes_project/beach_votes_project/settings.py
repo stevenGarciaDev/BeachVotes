@@ -131,7 +131,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 # if True, user will automatically be logged in
 REGISTRATION_AUTO_LOGIN = True
 # the page you want users to redirect to if successful login
-LOGIN_REDIRECT_URL = '/poll/show_polls'
+LOGIN_REDIRECT_URL = '/poll/successful_login'
 # the page users are directed to if not logged in,
 # and are trying to access a restricted page
 LOGIN_URL = '/poll/restricted_page.html'

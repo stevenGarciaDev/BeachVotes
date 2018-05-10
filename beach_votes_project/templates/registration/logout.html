@@ -3,6 +3,11 @@
 
 {% block body_block %}
   <div class="container col-md-6 col-md-offset-3">
-    <h1>Succesfully logged out</h1>
+    <h1 class="text-center">You have succesfully logged out</h1>
+
+    <a href="{% url 'index' %}" class="btn btn-primary btn-lg center-block">
+      >>> Back to homepage
+    </a>
+
   </div>
 {% endblock %}

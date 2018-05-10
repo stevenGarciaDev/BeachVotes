@@ -15,6 +15,9 @@ def user_logout(request):
 def index(request):
     return render(request, 'poll/index.html', {})
 
+def successful_login(request):
+    return render(request, 'poll/successful_login.html', {})
+
 @login_required
 def create_poll(request):
     categories = Category.objects.all()
@@ -39,7 +42,6 @@ def create_poll(request):
             end_date_object = datetime.date(year, month, day)
             poll.end_date = end_date_object
 
-
             # link the new poll with the corresponding Category table record
             selected_category = request.POST.get('category')
             category = Category.objects.get(group_name = selected_category)
@@ -51,9 +53,19 @@ def create_poll(request):
             poll.save()
 
             # add choices
-            poll.answer = request.POST.get('answer')
+            # must construct a PollAnswerChoice
+            # then link with Poll
 
-            context_dict = { 'polls' : Poll.objects.all() }
+            # should return an array
+            answers = request.POST.getlist('answer')
+
+            for answer in answers:
+                print("One of the answers is {name}".format(name = answer))
+                answer_choice = PollAnswerChoice(answer = answer)
+                answer_choice.poll = poll
+                answer_choice.save()
+
+            context_dict['polls'] = Poll.objects.all()
             return render(request, 'poll/show_polls.html', context_dict)
         except:
             context_dict['error_message'] = "Invalid input"
@@ -80,12 +92,52 @@ def show_polls(request):
 
 @login_required
 def view_poll(request, poll_id):
-    context_dict = { 'poll' : Poll.objects.get(id = poll_id) }
-    return render(request, 'poll/view_poll.html', context_dict)
+    # first check if user has already voted
+    # user_has_voted = True
+    #
+    # if Vote.objects.get(poll = poll_id):
+    #
+    #     return render(request, 'poll/views.html',
+    #         context = {'poll': poll,
+    #                    'user_has_voted' : user_has_voted })
+    #
+    # else:
+    #     user_has_voted = False
+
+    poll = Poll.objects.get(id = poll_id)
+    answer_choices = PollAnswerChoice.objects.filter(poll = poll)
+
+    return render(request, 'poll/view_poll.html',
+        context = {'poll' : poll,
+                   'answer_choices' : answer_choices })
 
 @login_required
-def view_category(request, category_id):
-    return render(request, 'poll/view_category.html', {})
+def view_category(request, category):
+    context_dict = { 'polls' : Poll.objects.filter(category = category) }
+    return render(request, 'poll/view_category.html', context_dict)
+
+@login_required
+def vote_poll(request, user_id, poll_id):
+
+    # post requset
+    if request.method == "POST":
+
+        # instantiate a Vote object
+        recent_vote = Vote()
+
+        # connect it with the user and the corresponding poll
+        recent_vote.user = User.objects.get(id = user_id)
+        recent_vote.poll = Poll.objects.get(id = poll_id)
+
+        user_selected_choice = request.POST.get('vote_choice')
+        answer_choice = PollAnswerChoice.objects.get(answer = user_selected_choice)
+        recent_vote.vote_choice = answer_choice
+
+        recent_vote.comment = request.POST.get('comment')
+
+        recent_vote.save()
+
+    return render(request, "poll/view_poll.html", {})
 
 def login_user(request):
     context_dict = { 'invalid_input' : False }

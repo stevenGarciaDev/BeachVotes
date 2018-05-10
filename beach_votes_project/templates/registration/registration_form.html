@@ -11,21 +11,35 @@
 
     <form method="post" action=".">
       {% csrf_token %}
-
+<!--
       <div class="form-group">
-        <label for="username" class="control-label">Username:</label>
-        <input type="text" class="form-control" name="username" id="username">
+        <p>{{ form.username.errors }}</p>
+        <label required for="id_username" class="control-label">Username:</label>
+        <input class="form-control" id="id_username" maxlength="30" name="username" type="text">
+        <span class="helptext">Required. 30 characters or fewer. Letters, digits and @/./+/-/_ only.</span>
       </div>
 
       <div class="form-group">
-        <label for="email" class="control-label">Email:</label>
-        <input type="email" class="form-control" name="email" id="email">
+        <p>{{ form.email.errors }}</p>
+        <label required for="id_email" class="control-label">Email:</label>
+        <input type="email" class="form-control" name="email" id="id_email">
       </div>
 
       <div class="form-group">
-        <label for="password" class="control-label">Password:</label>
-        <input type="password" class="form-control" name="password" id="password">
+        <p>{{ form.password.errors }}</p>
+        <label required for="id_password1" class="control-label">Password:</label>
+        <input type="password" class="form-control" name="password1" id="id_password1">
       </div>
+
+      <div class="form-group">
+        <p>{{ form.password.errors }}</p>
+        <label required for="id_password2" class="control-label">Password:</label>
+        <input type="password" class="form-control" name="password2" id="id_password2">
+        <span class="helptext">Enter the same password as before, for verification.</span></p>
+
+      </div> -->
+
+      {{ form.as_p }}
 
       <button class="btn btn-primary btn-lg btn-block" name="submit">
         Create New Account
@@ -35,7 +49,7 @@
 
     <div>
       <h3>Already have an account?</h3>
-      <a href="{% url 'auth_login' %}" class="btn btn-warning btn-lg btn-block">Log In</a>
+      <a href="{% url 'auth_login' %}" class="btn btn-warning btn-lg btn-block">Login</a>
     </div>
 
   </div><!-- end of container for form -->

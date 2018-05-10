@@ -5,8 +5,10 @@
   {{ 'Create Poll'}}
 {% endblock %}
 
+
 {% block body_block %}
-  <div class="login container col-md-6 col-md-offset-3">
+<body class="fixed-background-image">
+  <div class=" container col-md-6 col-md-offset-3">
     <h1 class="text-center">Create Poll</h1>
 
     {% if invalid_input %}
@@ -37,18 +39,19 @@
 
         </select>
       </div>
+
       <div class = "form-group">
-        <label for= "answer">Choice 1</label>
-        <input type = "text" class = "form-control" id = "answer" name = "answer">
+        <label for= "answer">Answer Choice</label>
+        <input type = "text" class = "form-control answer" id = "answer" name = "answer">
       </div>
 
       <div class = "form-group">
-        <label for = "answer">Choice 2</label>
-        <input type = "text" class = "form-control" id = "answer" name = "answer">
+        <label for = "answer">Answer Choice</label>
+        <input type = "text" class = "form-control answer" id = "answer" name = "answer">
       </div>
 
-      <button class="btn btn-warning btn-lg btn-block" name="addchoice">
-        Add Choice
+      <button class="btn btn-primary btn-lg btn-block add-choice" name="addchoice">
+        Add Another Choice
       </button>
 
       <button class="btn btn-warning btn-lg btn-block" name="submit">
@@ -58,4 +61,24 @@
     </form>
 
   </div>
+
+<script>
+
+$("document").ready(function() {
+
+  $('.add-choice').click(function(e) {
+
+    e.preventDefault();
+    $(".answer:last").after('<div class="form-group"' +
+      '<label for = "answer">Answer Choice</label>' +
+      '<input type = "text" class = "form-control answer" id = "answer" name = "answer">' +
+      '</div>');
+
+  });
+
+});
+
+</script>
+
+</body>
 {% endblock %}
