@@ -10,6 +10,9 @@ import datetime
 class Category(models.Model):
     group_name = models.CharField(max_length = 50, unique = True, null = False)
 
+    def __init__(self, *args, **kwargs):
+        models.Model.__init__(self, *args, **kwargs)
+        
     def __str__(self):
         return self.group_name
 
@@ -18,6 +21,9 @@ class Category(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __init__(self, *args, **kwargs):
+        models.Model.__init__(self, *args, **kwargs)
 
     def __str__(self):
         return self.user.username
@@ -35,12 +41,18 @@ class Poll(models.Model):
     end_date =  models.DateField(default = datetime.date.today() + datetime.timedelta(days=1),
                                  null = False)
 
+    def __init__(self, *args, **kwargs):
+        models.Model.__init__(self, *args, **kwargs)
+
     def __str__(self):
         return self.title_question
 
 class PollAnswerChoice(models.Model):
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     answer = models.CharField(max_length = 50, null = False)
+
+    def __init__(self, *args, **kwargs):
+        models.Model.__init__(self, *args, **kwargs)
 
     def __str__(self):
         return self.answer
@@ -56,6 +68,9 @@ class Vote(models.Model):
     vote_choice = models.CharField(max_length = 50, unique = False, null = False)
     comment = models.CharField(max_length = 144, unique = False, null = False)
     date_of_vote = models.DateField(default = datetime.date.today, null = False)
+
+    def __init__(self, *args, **kwargs):
+        models.Model.__init__(self, *args, **kwargs)
 
     def __str__(self):
         return "The vote of : " + self.vote_choice + " was submitted by user:  " + self.user.username

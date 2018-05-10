@@ -53,7 +53,7 @@
 
           {% for poll in polls %}
             <li class="list-group-item">
-              <a href="{% url 'view_poll' poll.id %}">
+              <a href="{% url 'view_poll' poll.id user.id %}">
                 {{ poll.title_question }}
 
                 <p style="float: right;">End Date: {{ poll.end_date }}</p>

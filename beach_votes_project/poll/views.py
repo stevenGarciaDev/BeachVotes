@@ -91,25 +91,32 @@ def show_polls(request):
     return render(request, 'poll/show_polls.html', context_dict)
 
 @login_required
-def view_poll(request, poll_id):
-    # first check if user has already voted
-    # user_has_voted = True
-    #
-    # if Vote.objects.get(poll = poll_id):
-    #
-    #     return render(request, 'poll/views.html',
-    #         context = {'poll': poll,
-    #                    'user_has_voted' : user_has_voted })
-    #
-    # else:
-    #     user_has_voted = False
-
+def view_poll(request, poll_id, user_id):
     poll = Poll.objects.get(id = poll_id)
-    answer_choices = PollAnswerChoice.objects.filter(poll = poll)
+    user = User.objects.get(id = user_id)
 
-    return render(request, 'poll/view_poll.html',
-        context = {'poll' : poll,
-                   'answer_choices' : answer_choices })
+    try:
+        users_vote = Vote.objects.filter(poll = poll, user = user)
+        print("yup user has voted")
+
+        # retrieve results and send to webpage
+        vote_results = Vote.objects.filter(poll = poll)
+        print("yup got the results")
+
+        return render(request, 'poll/view_poll.html',
+            context = {'poll': poll,
+                       'user_has_voted' : True,
+                       'vote_results' : vote_results })
+    except Exception as exception:
+        answer_choices = PollAnswerChoice.objects.filter(poll = poll)
+
+        print("no user has not voted")
+        print( str(exception) )
+
+        return render(request, 'poll/view_poll.html',
+            context = {'poll' : poll,
+                       'user_has_voted' : False,
+                       'answer_choices' : answer_choices })
 
 @login_required
 def view_category(request, category):
