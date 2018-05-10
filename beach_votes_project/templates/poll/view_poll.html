@@ -10,9 +10,10 @@
         <h2>{{ poll.title_question }}</h2>
         <h3>End date: {{ poll.end_date }}</h3>
 
-
         {% if user_has_voted %}
 
+          <h1 class="text-center">You have already voted!</h1>
+          
           <!--
           Show results:
 
@@ -37,25 +38,25 @@
 
         {% else %}
 
-          <form method="post" action="{% url 'vote_poll' %}">
+          <form method="post" action="{% url 'vote_poll' user.id poll.id %}">
             {% csrf_token %}
 
-          <select name="poll_choice" id="choice" class="form-control">
-            {% for choice in answer_choices %}
-              <option value="{{ choice }}">{{ choice }}</choice>
-            {% endfor %}
-          </select>
+            <select name="vote_choice" id="choice" class="form-control">
+              {% for choice in answer_choices %}
+                <option value="{{ choice }}">{{ choice }}</option>
+              {% endfor %}
+            </select>
 
-          <div class="form-group">
-            <label for="comment">Comment:</label>
-            <textarea class="form-control" id="comment" name="comment"></textarea>
-          </div>
+            <div class="form-group">
+              <label for="comment">Comment:</label>
+              <textarea class="form-control" id="comment" name="comment"></textarea>
+            </div>
 
-          <button class="btn btn-primary btn-lg btn-block" name="submit">
-            Vote and See Results
-          </button>
+            <button class="btn btn-primary btn-lg btn-block" name="submit">
+              Vote and See Results
+            </button>
 
-        </form>
+          </form>
 
         {% endif %}<!-- end for if user_has_voted -->
 

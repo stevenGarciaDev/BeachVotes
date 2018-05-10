@@ -51,11 +51,11 @@ class PollAnswerChoice(models.Model):
 #   comment -   Comment by choice, left by the user should they choose
 #   Date    -   Date stamping the date in which the user has cast the vote
 class Vote(models.Model):
-    user = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     poll = models.ForeignKey(Poll, on_delete=models.CASCADE)
     vote_choice = models.CharField(max_length = 50, unique = False, null = False)
     comment = models.CharField(max_length = 144, unique = False, null = False)
-    date_of_vote = models.DateField(null = False)
+    date_of_vote = models.DateField(default = datetime.date.today, null = False)
 
     def __str__(self):
         return "The vote of : " + self.vote_choice + " was submitted by user:  " + self.user.username

@@ -42,7 +42,6 @@ def create_poll(request):
             end_date_object = datetime.date(year, month, day)
             poll.end_date = end_date_object
 
-
             # link the new poll with the corresponding Category table record
             selected_category = request.POST.get('category')
             category = Category.objects.get(group_name = selected_category)
@@ -93,6 +92,18 @@ def show_polls(request):
 
 @login_required
 def view_poll(request, poll_id):
+    # first check if user has already voted
+    # user_has_voted = True
+    #
+    # if Vote.objects.get(poll = poll_id):
+    #
+    #     return render(request, 'poll/views.html',
+    #         context = {'poll': poll,
+    #                    'user_has_voted' : user_has_voted })
+    #
+    # else:
+    #     user_has_voted = False
+
     poll = Poll.objects.get(id = poll_id)
     answer_choices = PollAnswerChoice.objects.filter(poll = poll)
 
@@ -106,9 +117,27 @@ def view_category(request, category):
     return render(request, 'poll/view_category.html', context_dict)
 
 @login_required
-def vote_poll(request):
+def vote_poll(request, user_id, poll_id):
 
-    return render(request, 'poll/view_category.html', {})
+    # post requset
+    if request.method == "POST":
+
+        # instantiate a Vote object
+        recent_vote = Vote()
+
+        # connect it with the user and the corresponding poll
+        recent_vote.user = User.objects.get(id = user_id)
+        recent_vote.poll = Poll.objects.get(id = poll_id)
+
+        user_selected_choice = request.POST.get('vote_choice')
+        answer_choice = PollAnswerChoice.objects.get(answer = user_selected_choice)
+        recent_vote.vote_choice = answer_choice
+
+        recent_vote.comment = request.POST.get('comment')
+
+        recent_vote.save()
+
+    return render(request, "poll/view_poll.html", {})
 
 def login_user(request):
     context_dict = { 'invalid_input' : False }
