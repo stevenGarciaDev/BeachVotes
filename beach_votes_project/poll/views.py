@@ -5,6 +5,7 @@ from poll.forms import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.core.urlresolvers import reverse
+import datetime
 
 @login_required
 def user_logout(request):
@@ -95,22 +96,38 @@ def view_poll(request, poll_id, user_id):
     poll = Poll.objects.get(id = poll_id)
     user = User.objects.get(id = user_id)
 
+    if poll.end_date < datetime.date:
+        vote_results = Vote.objects.filter(poll = poll)
+        final_results = retrive_poll_results(poll)
+
+        return render(request, 'poll/view_poll.html',
+            context = {'poll': poll,
+                       'poll_has_closed' : True,
+                       'final_results' : final_results,
+                       'vote_responses' : vote_results})
+
     try:
+        # when user has already voted
+
         users_vote = Vote.objects.filter(poll = poll, user = user)
-        print("yup user has voted")
+
+        if not users_vote:
+            raise Exception("Vote not found")
 
         # retrieve results and send to webpage
         vote_results = Vote.objects.filter(poll = poll)
-        print("yup got the results")
+        final_results = retrive_poll_results(poll)
 
         return render(request, 'poll/view_poll.html',
             context = {'poll': poll,
                        'user_has_voted' : True,
-                       'vote_results' : vote_results })
-    except Exception as exception:
-        answer_choices = PollAnswerChoice.objects.filter(poll = poll)
+                       'final_results' : final_results,
+                       'vote_responses' : vote_results })
 
-        print("no user has not voted")
+    except Exception as exception:
+        # when user has not voted
+
+        answer_choices = PollAnswerChoice.objects.filter(poll = poll)
         print( str(exception) )
 
         return render(request, 'poll/view_poll.html',
@@ -133,18 +150,26 @@ def vote_poll(request, user_id, poll_id):
         recent_vote = Vote()
 
         # connect it with the user and the corresponding poll
+        current_poll = Poll.objects.get(id = poll_id)
+
         recent_vote.user = User.objects.get(id = user_id)
-        recent_vote.poll = Poll.objects.get(id = poll_id)
+        recent_vote.poll = current_poll
 
         user_selected_choice = request.POST.get('vote_choice')
-        answer_choice = PollAnswerChoice.objects.get(answer = user_selected_choice)
+        answer_choice = PollAnswerChoice.objects.get(answer = user_selected_choice, poll = current_poll)
         recent_vote.vote_choice = answer_choice
 
         recent_vote.comment = request.POST.get('comment')
 
-        recent_vote.save()
+    return render(request, "poll/successful_vote.html", context =
+        {'poll_id' : poll_id,
+         'user_id' : user_id })
 
-    return render(request, "poll/view_poll.html", {})
+@login_required
+def successful_vote(request, poll_id, user_id):
+    return render(request, "poll/successful_vote.html", context =
+        {'poll_id' : poll_id,
+         'user_id' : user_id })
 
 def login_user(request):
     context_dict = { 'invalid_input' : False }
@@ -225,3 +250,44 @@ def restricted_page(request):
 # -----------------
 # Helper methods
 # -----------------
+
+def retrive_poll_results(poll):
+    # retrieve all possible choices
+    answer_choices = PollAnswerChoice.objects.filter(poll = poll)
+
+    # retrieve count for corresponding choice
+    final_results = []
+    for choice in answer_choices:
+        total_count = Vote.objects.filter(poll = poll, vote_choice = choice.answer).count()
+        final_results.append( [choice.answer, total_count] )
+
+    # selection sort,
+    i = 0
+    while i < len(final_results):
+        # find min
+        # swap with i
+        index_min_value = i
+
+        n = i
+        while n < len(final_results):
+            min_result = final_results[ index_min_value ]
+            current_result = final_results[n]
+
+            if min_result[1] < current_result[1]:
+                index_min_value = n
+
+            n += 1
+
+        # swap
+        temp = final_results[i]
+        final_results[i] = final_results[ index_min_value ]
+        final_results[ index_min_value ] = final_results[i]
+
+        # join data
+        final_results[i] = "{answer_choice} - ({total_count})".format(
+            answer_choice = final_results[i][0],
+            total_count = final_results[i][1] )
+
+        i += 1
+
+    return final_results

@@ -22,7 +22,7 @@ def populate():
     i = 0
     while i < len(users):
         add_user(users[i])
-        i++
+        i += 1
 
     categories = [
         'Sports',

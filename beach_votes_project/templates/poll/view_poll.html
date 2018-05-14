@@ -10,9 +10,32 @@
         <h2>{{ poll.title_question }}</h2>
         <h3>End date: {{ poll.end_date }}</h3>
 
-        {% if user_has_voted %}
+        {% if user_has_voted or poll_has_closed %}
 
-          <h1 class="text-center">You have already voted!</h1>
+          <h1 class="text-center">View Results</h1>
+
+          <ul class="list-group">
+            {% for result in final_results %}
+
+            <li class="list-group-item">
+              {{ result }}
+            </li>
+
+            {% endfor %}
+          </ul>
+
+          <div>
+            {% for response in vote_responses %}
+
+              {{ response.vote_choice }}
+              {{ response.comment }}
+              <br /><br />
+
+            {% endfor %}
+          </div>
+
+
+
 
           <!--
           Show results:

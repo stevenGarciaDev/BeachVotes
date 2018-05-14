@@ -12,7 +12,7 @@ class Category(models.Model):
 
     def __init__(self, *args, **kwargs):
         models.Model.__init__(self, *args, **kwargs)
-        
+
     def __str__(self):
         return self.group_name
 
