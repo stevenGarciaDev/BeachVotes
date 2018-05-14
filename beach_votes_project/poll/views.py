@@ -59,9 +59,14 @@ def create_poll(request):
 
             # should return an array
             answers = request.POST.getlist('answer')
+            valid_answers = 0
 
             for answer in answers:
-                print("One of the answers is {name}".format(name = answer))
+
+                # ensure value is not ""
+                if not answer:
+                    continue
+
                 answer_choice = PollAnswerChoice(answer = answer)
                 answer_choice.poll = poll
                 answer_choice.save()
