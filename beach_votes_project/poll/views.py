@@ -12,7 +12,7 @@ def user_logout(request):
     logout(request)
     return render(request, 'poll/index.html', {})
 
-#Combines a template with HttpResponse and returns rendered text via web
+# Combines a template with HttpResponse and returns rendered text via web
 def index(request):
     return render(request, 'poll/index.html', {})
 

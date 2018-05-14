@@ -11,7 +11,7 @@
 
     <form method="post" action=".">
       {% csrf_token %}
-<!--
+
       <div class="form-group">
         <p>{{ form.username.errors }}</p>
         <label required for="id_username" class="control-label">Username:</label>
@@ -37,9 +37,7 @@
         <input type="password" class="form-control" name="password2" id="id_password2">
         <span class="helptext">Enter the same password as before, for verification.</span></p>
 
-      </div> -->
-
-      {{ form.as_p }}
+      </div>
 
       <button class="btn btn-primary btn-lg btn-block" name="submit">
         Create New Account
