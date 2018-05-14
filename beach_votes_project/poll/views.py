@@ -138,6 +138,7 @@ def view_poll(request, poll_id, user_id):
 @login_required
 def view_category(request, category):
     context_dict = { 'polls' : Poll.objects.filter(category = category) }
+    context_dict['category_name'] = Category.objects.get(id = category)
     return render(request, 'poll/view_category.html', context_dict)
 
 @login_required

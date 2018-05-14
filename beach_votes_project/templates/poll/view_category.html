@@ -5,11 +5,11 @@
 
   {% if polls %}
 
-    <h1 class="text-center">Category</h1>
+    <h1 class="text-center">Category: {{ category_name }}</h1>
 
     {% for poll in polls %}
 
-      <div class="col-md-4 text-center" style="border: 5px solid white; margin-bottom: 40px;">
+      <div class="col-sm-6 col-md-4 text-center" style="padding: 10px; border: 5px solid white; margin-bottom: 40px;">
         <h2>{{ poll.title_question }}</h2>
         <h3>End date: {{ poll.end_date }}</h3>
         <a href="{% url 'view_poll' poll.id user.id %}" class="btn btn-default">View Poll</a>
