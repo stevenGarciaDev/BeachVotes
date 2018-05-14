@@ -147,6 +147,11 @@ def view_category(request, category):
     return render(request, 'poll/view_category.html', context_dict)
 
 @login_required
+def view_all_polls(request):
+    context_dict = { 'polls' : Poll.objects.all() }
+    return render(request, 'poll/view_all_polls.html', context_dict)
+
+@login_required
 def vote_poll(request, user_id, poll_id):
 
     # post requset
