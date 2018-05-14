@@ -101,7 +101,8 @@ def view_poll(request, poll_id, user_id):
     poll = Poll.objects.get(id = poll_id)
     user = User.objects.get(id = user_id)
 
-    if poll.end_date < datetime.date:
+    if poll.end_date < datetime.date.today() + datetime.timedelta(days=1):
+        print("date has passed")
         vote_results = Vote.objects.filter(poll = poll)
         final_results = retrive_poll_results(poll)
 
@@ -115,6 +116,8 @@ def view_poll(request, poll_id, user_id):
         # when user has already voted
 
         users_vote = Vote.objects.filter(poll = poll, user = user)
+        print("user has voted")
+        print(users_vote)
 
         if not users_vote:
             raise Exception("Vote not found")
@@ -154,7 +157,7 @@ def view_all_polls(request):
 @login_required
 def vote_poll(request, user_id, poll_id):
 
-    # post requset
+    # post request
     if request.method == "POST":
 
         # instantiate a Vote object
@@ -171,6 +174,8 @@ def vote_poll(request, user_id, poll_id):
         recent_vote.vote_choice = answer_choice
 
         recent_vote.comment = request.POST.get('comment')
+
+        recent_vote.save()
 
     return render(request, "poll/successful_vote.html", context =
         {'poll_id' : poll_id,
