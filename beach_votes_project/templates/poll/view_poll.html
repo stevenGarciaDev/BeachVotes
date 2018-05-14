@@ -2,19 +2,21 @@
 {% load staticfiles %}
 
 {% block body_block %}
-  <div class="container col-md-6 col-md-offset-3">
+  <div class="container col-md-6 col-md-offset-3 text-center">
 
-    <div class="text-center">
+    <div>
       {% if poll %}
 
         <h2>{{ poll.title_question }}</h2>
         <h3>End date: {{ poll.end_date }}</h3>
 
-        {% if user_has_voted or poll_has_closed %}
+        {% if poll_has_closed %}
 
           <h1 class="text-center">View Results</h1>
 
-          <ul class="list-group">
+          <hr />
+
+          <ul class="list-group" style="color: black;">
             {% for result in final_results %}
 
             <li class="list-group-item">
@@ -23,41 +25,22 @@
 
             {% endfor %}
           </ul>
+    </div>
 
-          <div>
-            {% for response in vote_responses %}
+  </div>
 
-              {{ response.vote_choice }}
-              {{ response.comment }}
-              <br /><br />
+    <div class="container text-center">
+      <div class="row col-sm-6" style="border: 5px solid white; margin-bottom: 40px; font-size: 20px; padding: 20px;">
+        {% for response in vote_responses %}
 
-            {% endfor %}
-          </div>
+          <p>Vote: {{ response.vote_choice }}</p>
+          <p>Comment: {{ response.comment }} </p>
 
+          <br /><br />
 
-
-
-          <!--
-          Show results:
-
-            Total Participants: 4
-
-            ranking of answer choices
-            1) Choice 1 (2)
-            2) Choice 2 (1)
-            3) Choice 3 (1)
-            4) Choice 4 (0)
-
-            Responses:
-              // in row with
-
-            Choice 1
-            Comment: ...
-
-            Choice 2
-            Comment: ...
-
-          -->
+        {% endfor %}
+      </div>
+    </div>
 
         {% else %}
 

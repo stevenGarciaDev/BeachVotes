@@ -120,7 +120,7 @@ def view_poll(request, poll_id, user_id):
 
         return render(request, 'poll/view_poll.html',
             context = {'poll': poll,
-                       'user_has_voted' : True,
+                       'poll_has_closed' : True,
                        'final_results' : final_results,
                        'vote_responses' : vote_results })
 
@@ -132,7 +132,7 @@ def view_poll(request, poll_id, user_id):
 
         return render(request, 'poll/view_poll.html',
             context = {'poll' : poll,
-                       'user_has_voted' : False,
+                       'poll_has_closed': False,
                        'answer_choices' : answer_choices })
 
 @login_required

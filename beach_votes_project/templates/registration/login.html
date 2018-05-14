@@ -9,7 +9,7 @@
     <form method="post" action=".">
       {% csrf_token %}
 
-      <div class="form-group">
+      <!-- <div class="form-group">
         <p>{{ form.username.errors }}</p>
         <label for="username" class="control-label">Username:</label>
         <input type="text" class="form-control" name="username" id="username">
@@ -19,7 +19,10 @@
         <p>{{ form.password.errors }}</p>
         <label for="password" class="control-label">Password:</label>
         <input type="password" class="form-control" name="password" id="password">
-      </div>
+      </div> -->
+
+      {{ form.as_p }}
+
 
       <button class="btn btn-warning btn-lg btn-block" name="submit">Login</button>
 
