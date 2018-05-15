@@ -5,30 +5,28 @@
   {{ 'Create Poll'}}
 {% endblock %}
 
-
 {% block body_block %}
 <body class="fixed-background-image">
   <div class=" container col-md-6 col-md-offset-3">
     <h1 class="text-center">Create Poll</h1>
 
-    {% if invalid_input %}
-      <h2 class="error_message text-center">{{ error_message }}</h2>
-    {% endif %}
-
     <form method="post" action="{% url 'create_poll' %}">
       {% csrf_token %}
 
       <div class="form-group">
+        <p>{{ form.title_question.errors }}</p>
         <label for="title_question">Title:</label>
         <input type="text" class="form-control" id="title_question" name="title_question">
       </div>
 
       <div class="form-group">
+        <p>{{ form.end_date.errors }}</p>
         <label for="end_date">End Date:</label>
         <input type="date" class="form-control" id="end_date" name="end_date">
       </div>
 
       <div class="form-group">
+        <p>{{ form.category.errors }}</p>
         <label for="category">Most Relevant Category:</label>
 
         <select name="category" id="category" class="form-control">
@@ -41,11 +39,13 @@
       </div>
 
       <div class = "form-group">
+        <p>{{ form.answer.errors }}</p>
         <label for= "answer">Answer Choice</label>
         <input type = "text" class = "form-control answer" id = "answer" name = "answer">
       </div>
 
       <div class = "form-group">
+        <p>{{ form.answer.errors }}</p>
         <label for = "answer">Answer Choice</label>
         <input type = "text" class = "form-control answer" id = "answer" name = "answer">
       </div>
@@ -69,7 +69,7 @@ $("document").ready(function() {
   $('.add-choice').click(function(e) {
 
     e.preventDefault();
-    $(".answer:last").after('<div class="form-group"' +
+    $(".answer:last").after('<div class="form-group" style="margin-top: 10px;"' +
       '<label for = "answer">Answer Choice</label>' +
       '<input type = "text" class = "form-control answer" id = "answer" name = "answer">' +
       '</div>');

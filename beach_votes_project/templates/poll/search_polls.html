@@ -1,0 +1,12 @@
+{% extends 'poll/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+
+  {% if matching_polls %}
+    <h1>matching!</h1>
+  {% else %}
+    <h1>no matching</h1>
+  {% endif %}
+
+{% endblock %}

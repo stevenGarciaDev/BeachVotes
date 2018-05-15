@@ -9,12 +9,16 @@
 <div class="container">
 
   <div class="text-center" style="margin: 30px;">
-    <!-- <a href="#" type="button" class="btn btn-lg btn-warning">Create a New Poll</a> -->
 
-    <input type="text" class="form-control input-lg center-block" name="search"
-      placeholder="Search for a Poll..." />
+    <form method='post' action="{% url 'search_polls' %}">
+    {% csrf_token %}
 
-      <a href="#" class="btn btn-lg btn-success" style="margin-top: 30px;">Go!</a>
+      <input type="text" class="form-control input-lg center-block" name="search"
+        placeholder="Search for a Poll..." />
+
+      <button name="submit" class="btn btn-lg btn-success" style="margin-top: 30px;">Go!</a>
+
+    </form>
 
   </div>
 

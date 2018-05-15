@@ -20,6 +20,13 @@ def successful_login(request):
     return render(request, 'poll/successful_login.html', {})
 
 @login_required
+def search_polls(request):
+    poll_name = request.POST.get('search')
+    matching_polls = Poll.objects.filter(title_question__iregex = '^(' + poll_name + ')')
+    return render(request, 'poll/search_polls.html', context = { 'matching_polls' : matching_polls })
+
+
+@login_required
 def create_poll(request):
     categories = Category.objects.all()
 
@@ -102,7 +109,6 @@ def view_poll(request, poll_id, user_id):
     user = User.objects.get(id = user_id)
 
     if poll.end_date < datetime.date.today() + datetime.timedelta(days=1):
-        print("date has passed")
         vote_results = Vote.objects.filter(poll = poll)
         final_results = retrive_poll_results(poll)
 
@@ -116,7 +122,6 @@ def view_poll(request, poll_id, user_id):
         # when user has already voted
 
         users_vote = Vote.objects.filter(poll = poll, user = user)
-        print("user has voted")
         print(users_vote)
 
         if not users_vote:
