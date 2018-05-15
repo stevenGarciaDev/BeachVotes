@@ -25,10 +25,8 @@ def search_polls(request):
 
     if not poll_name or poll_name == "":
         matching_polls = None
-        print(matching_polls)
     else:
         matching_polls = Poll.objects.filter(title_question__iregex = '(' + poll_name + ')')
-        print(matching_polls)
 
     return render(request, 'poll/search_polls.html', context = { 'matching_polls' : matching_polls })
 
