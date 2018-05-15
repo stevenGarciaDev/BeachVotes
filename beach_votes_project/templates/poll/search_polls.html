@@ -3,10 +3,27 @@
 
 {% block body_block %}
 
+<div class="container">
+
   {% if matching_polls %}
-    <h1>matching!</h1>
+    <h1 class="text-center">Found matches</h1>
+
+    {% for poll in matching_polls %}
+    
+      <div class="row pollcontainer col-md-6 col-xs-6" >
+        <h2>{{ poll.title_question }}</h2>
+        <h3>End date: {{ poll.end_date }}</h3>
+          <a href="{% url 'view_poll' poll.id user.id %}" class = "categorybutton">
+          View Poll
+          </a>
+      </div>
+
+    {% endfor %}
+
   {% else %}
-    <h1>no matching</h1>
+    <h1 class="text-center">Found no matches</h1>
   {% endif %}
+
+</div>
 
 {% endblock %}

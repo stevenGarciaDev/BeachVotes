@@ -9,7 +9,7 @@
     <h1 class="text-center">Category: {{ category_name }}</h1>
 
     {% for poll in polls %}
-      <div class="pollcontainer" >
+      <div class="row col-xs-6 pollcontainer" >
         <h2>{{ poll.title_question }}</h2>
         <h3>End date: {{ poll.end_date }}</h3>
           <a href="{% url 'view_poll' poll.id user.id %}" class = "categorybutton">

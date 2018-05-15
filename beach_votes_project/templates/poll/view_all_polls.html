@@ -8,10 +8,12 @@
 
     {% for poll in polls %}
 
-      <div class="col-sm-6 col-md-4 text-center" style="padding: 10px; border: 5px solid white; margin-bottom: 40px;">
+      <div class="row col-xs-6 col-sm-6 col-md-4 text-center pollcontainer">
         <h2>{{ poll.title_question }}</h2>
         <h3>End date: {{ poll.end_date }}</h3>
-        <a href="{% url 'view_poll' poll.id user.id %}" class="btn btn-default">View Poll</a>
+        <a href="{% url 'view_poll' poll.id user.id %}" class = "categorybutton">
+        View Poll
+        </a>
       </div>
 
     {% endfor %}

@@ -2,6 +2,7 @@
 {% load staticfiles %}
 
 {% block body_block %}
+<body class="viewcategorypage">
   <div class="container col-md-6 col-md-offset-3 text-center">
 
     <div>
@@ -30,7 +31,7 @@
   </div>
 
     <div class="container text-center">
-      <div class="row col-sm-6" style="border: 5px solid white; margin-bottom: 40px; font-size: 20px; padding: 20px;">
+      <div class="row col-sm-6 pollcontainer" style="border: 5px solid white; margin-bottom: 40px; font-size: 20px; padding: 20px;">
         {% for response in vote_responses %}
 
           <p>Vote: {{ response.vote_choice }}</p>
@@ -75,5 +76,6 @@
     </div>
 
 </div>
+</body>
 
 {% endblock %}
