@@ -1,6 +1,7 @@
 {% extends 'poll/base.html' %}
 
 {% block body_block %}
+<body class = 'viewcategorypage'>
 <div class="container">
 
   {% if polls %}
@@ -8,17 +9,18 @@
     <h1 class="text-center">Category: {{ category_name }}</h1>
 
     {% for poll in polls %}
-
-      <div class="col-sm-6 col-md-4 text-center" style="padding: 10px; border: 5px solid white; margin-bottom: 40px;">
+      <div class="pollcontainer" >
         <h2>{{ poll.title_question }}</h2>
         <h3>End date: {{ poll.end_date }}</h3>
-        <a href="{% url 'view_poll' poll.id user.id %}" class="btn btn-default">View Poll</a>
+          <a href="{% url 'view_poll' poll.id user.id %}" class = "categorybutton">
+          View Poll
+          </a>
       </div>
-
     {% endfor %}
 
   {% else %}
     <h1 class="text-center">There are no polls to show in this category</h1>
   {% endif %}
 </div>
+</body>
 {% endblock %}
