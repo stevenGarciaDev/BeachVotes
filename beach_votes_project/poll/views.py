@@ -22,7 +22,14 @@ def successful_login(request):
 @login_required
 def search_polls(request):
     poll_name = request.POST.get('search')
-    matching_polls = Poll.objects.filter(title_question__iregex = '^(' + poll_name + ')')
+
+    if not poll_name or poll_name == "":
+        matching_polls = None
+        print(matching_polls)
+    else:
+        matching_polls = Poll.objects.filter(title_question__iregex = '(' + poll_name + ')')
+        print(matching_polls)
+
     return render(request, 'poll/search_polls.html', context = { 'matching_polls' : matching_polls })
 
 

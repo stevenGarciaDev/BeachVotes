@@ -9,7 +9,7 @@
     <h1 class="text-center">Found matches</h1>
 
     {% for poll in matching_polls %}
-    
+
       <div class="row pollcontainer col-md-6 col-xs-6" >
         <h2>{{ poll.title_question }}</h2>
         <h3>End date: {{ poll.end_date }}</h3>
@@ -22,6 +22,8 @@
 
   {% else %}
     <h1 class="text-center">Found no matches</h1>
+
+    <a href="{% url 'show_polls' %}" class="btn btn-lg btn-primary center-block"> >>> Back to Polls </a>
   {% endif %}
 
 </div>
