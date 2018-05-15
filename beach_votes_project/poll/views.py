@@ -307,7 +307,7 @@ def retrive_poll_results(poll):
         # swap
         temp = final_results[i]
         final_results[i] = final_results[ index_min_value ]
-        final_results[ index_min_value ] = final_results[i]
+        final_results[ index_min_value ] = temp
 
         # join data
         final_results[i] = "{answer_choice} - ({total_count})".format(
