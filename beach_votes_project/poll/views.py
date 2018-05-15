@@ -127,7 +127,6 @@ def view_poll(request, poll_id, user_id):
         # when user has already voted
 
         users_vote = Vote.objects.filter(poll = poll, user = user)
-        print(users_vote)
 
         if not users_vote:
             raise Exception("Vote not found")
