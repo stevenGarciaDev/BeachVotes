@@ -68,7 +68,8 @@ input {
                 rgba(20, 20, 20, .6),
                 rgba(20, 20, 20, .6)
               ),
-              url('../images/blacksandbeach.jpg');
+              url('../images/beachcave.jpg');
+  /* blacksandbeach.jpg */
   background-size: cover;
   border-bottom-color: #2c3e50;
   background-attachment:fixed;
