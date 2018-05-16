@@ -53,6 +53,12 @@ def create_poll(request):
             day = int( end_date[2] )
 
             end_date_object = datetime.date(year, month, day)
+
+            print(end_date_object)
+            #print(datetime.today())
+            if end_date_object < datetime.date.today():
+                raise Exception("Date has passed")
+
             poll.end_date = end_date_object
 
             # link the new poll with the corresponding Category table record
@@ -113,7 +119,7 @@ def view_poll(request, poll_id, user_id):
     poll = Poll.objects.get(id = poll_id)
     user = User.objects.get(id = user_id)
 
-    if poll.end_date < ( datetime.date.today() + datetime.timedelta(days=1) ):
+    if poll.end_date < ( datetime.date.today() ):
         vote_results = Vote.objects.filter(poll = poll)
         final_results = retrive_poll_results(poll)
 
