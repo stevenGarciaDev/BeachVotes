@@ -55,8 +55,10 @@
             </select>
 
             <div class="form-group">
-              <label for="comment">Comment:</label>
-              <textarea class="form-control" id="comment" name="comment"></textarea>
+
+              <label for="comment">Comment (optional):</label>
+              <p style="margin: 5px; color: red; font-style: italic;">{{ error_message }}</p>
+              <textarea class="form-control" id="comment" name="comment">{{ previous_comment }}</textarea>
             </div>
 
             <button class="btn btn-primary btn-lg btn-block" name="submit">

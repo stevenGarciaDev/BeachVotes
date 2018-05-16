@@ -113,7 +113,7 @@ def view_poll(request, poll_id, user_id):
     poll = Poll.objects.get(id = poll_id)
     user = User.objects.get(id = user_id)
 
-    if poll.end_date < datetime.date.today() + datetime.timedelta(days=1):
+    if poll.end_date < ( datetime.date.today() + datetime.timedelta(days=1) ):
         vote_results = Vote.objects.filter(poll = poll)
         final_results = retrive_poll_results(poll)
 
@@ -166,11 +166,27 @@ def view_all_polls(request):
 @login_required
 def vote_poll(request, user_id, poll_id):
 
+    MAX_COMMENT_LENGTH = 144
+
     # post request
     if request.method == "POST":
 
         # instantiate a Vote object
         recent_vote = Vote()
+
+        comment = request.POST.get('comment')
+
+        if len(comment) > MAX_COMMENT_LENGTH:
+
+            poll = Poll.objects.get(id = poll_id)
+            answer_choices = PollAnswerChoice.objects.filter(poll = poll)
+
+            return render(request, 'poll/view_poll.html',
+                context = {'poll' : poll,
+                           'poll_has_closed': False,
+                           'answer_choices' : answer_choices,
+                           'error_message' : "Comments cannot exceed 144 characters",
+                           'previous_comment' : comment })
 
         # connect it with the user and the corresponding poll
         current_poll = Poll.objects.get(id = poll_id)
