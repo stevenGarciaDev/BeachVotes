@@ -31,15 +31,19 @@
   </div>
 
     <div class="container text-center">
-      <div class="row col-sm-6 pollcontainer" style="border: 5px solid white; margin-bottom: 40px; font-size: 20px; padding: 20px;">
+      <div class="row">
         {% for response in vote_responses %}
 
+        <div class="col-sm-6 " style="border: 5px solid white; border-radius: 10px; margin-bottom: 40px; font-size: 20px; padding: 20px;">
           <p>Vote: {{ response.vote_choice }}</p>
           <p>Comment: {{ response.comment }} </p>
 
           <br /><br />
 
+        </div>
+
         {% endfor %}
+
       </div>
     </div>
 

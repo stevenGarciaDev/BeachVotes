@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/1.9/ref/settings/
 
 import os
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'   
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = "smtp.gmail.com"
 EMAIL_HOST_USER = "beachvotes@gmail.com"
 EMAIL_HOST_PASSWORD = 'firstbase'
