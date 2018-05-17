@@ -201,7 +201,7 @@ def vote_poll(request, user_id, poll_id):
         recent_vote.poll = current_poll
 
         user_selected_choice = request.POST.get('vote_choice')
-        answer_choice = PollAnswerChoice.objects.get(answer = user_selected_choice, poll = current_poll)
+        answer_choice = PollAnswerChoice.objects.filter(answer = user_selected_choice, poll = current_poll)
         recent_vote.vote_choice = answer_choice
 
         recent_vote.comment = request.POST.get('comment')
